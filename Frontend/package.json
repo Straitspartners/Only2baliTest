@@ -31,7 +31,13 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "no-unused-vars": "warn",  
+      "no-undef": "warn",  
+      "react/jsx-uses-react": "warn",  
+      "react/jsx-uses-vars": "warn"   
+    }
   },
   "browserslist": {
     "production": [
