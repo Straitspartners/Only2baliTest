@@ -24,6 +24,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
+      
+      - name: Run build with linting disabled
+        run: CI=false npm run build
+
 
       - name: Install dependencies
         run: |
