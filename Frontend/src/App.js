@@ -7,7 +7,6 @@ import Signin from './Signin';  // Ensure this is Signin.js, not Signup.js
 import Forgotpassword from './Forgotpassword';  // Ensure this is Forgotpassword.js, not Signup.js
 import PasswordReset from './PasswordReset';  // Ensure this is PasswordReset.js, not Signup.js
 import DashboardPreferences from './DashboardPreferences';  // Ensure this is DashboardPreferences.js, not Signup.js
-import SigninUsingOTP from './SigninUsingOTP';  // Ensure this is Signinusingotp.js, not Signup.js
 import StartJourney from './JourneyStart';
 import Placestovisit from './Placestovisit';
 import BalineseAdventureForm from './BalineseAdventureForm';
@@ -43,7 +42,6 @@ function App() {
         <Route path='/passwordreset' element={<PasswordReset />} />
         <Route path='/dashboardPreferences' element={<DashboardPreferences />} />
         <Route path='/reset-password/:uid/:token' element={<PasswordReset />} />
-      <Route path='/SigninUsingOTP' element={<SigninUsingOTP/>} />
       <Route path='/journeystart' element={<StartJourney/>} />
       <Route path='/placestovisit' element={<Placestovisit/>} />  
       <Route path='/balineseAdventureForm' element={<BalineseAdventureForm/>} />    
