@@ -27,7 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-#%+v7yrj)fqc9@w8=tf^1blsr@x#p!3b+0=@%3%m3tqi)a9xr0"
+
+# SECRET_KEY = "django-insecure-#%+v7yrj)fqc9@w8=tf^1blsr@x#p!3b+0=@%3%m3tqi)a9xr0"
+
+SECRET_KEY = os.environ['MY_SECRET_KEY']
+
 # AVIATIONSTACK_API_KEY = '77a30f0f78f6d8f3e75b6089a9427308'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -165,14 +169,39 @@ WSGI_APPLICATION = "only2bali.wsgi.application"
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ONLY2BALI',  # Replace with your database name
+#         'USER': 'BALI',  # Replace with your database user
+#         'PASSWORD': 'only2bali@1234',  # Replace with your password
+#         'HOST': 'localhost',  # Use the database server's address (default is localhost)
+#         'PORT': '5432',  # Default PostgreSQL port
+#     }
+# }
+CONNECTION = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
+if not CONNECTION:
+    raise ValueError("AZURE_POSTGRESQL_CONNECTIONSTRING environment variable is not set")
+
+# Parse the connection string into a dictionary
+CONNECTION_STR = {}
+
+# Split by spaces to separate key-value pairs
+for pair in CONNECTION.split(' '):
+    key_value = pair.split('=')
+    if len(key_value) == 2:
+        CONNECTION_STR[key_value[0]] = key_value[1]
+    else:
+        raise ValueError(f"Invalid connection string format: {pair}")
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ONLY2BALI',  # Replace with your database name
-        'USER': 'BALI',  # Replace with your database user
-        'PASSWORD': 'only2bali@1234',  # Replace with your password
-        'HOST': 'localhost',  # Use the database server's address (default is localhost)
-        'PORT': '5432',  # Default PostgreSQL port
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": CONNECTION_STR.get('dbname'),
+        "HOST": CONNECTION_STR.get('host'),
+        "USER": CONNECTION_STR.get('user'),
+        "PASSWORD": CONNECTION_STR.get('password'),
+        "PORT": CONNECTION_STR.get('port', '5432'),  # Default to 5432 if not provided
     }
 }
 
@@ -206,6 +235,15 @@ USE_I18N = True
 
 USE_TZ = True
 
+STORAGES={
+	"default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+	
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
