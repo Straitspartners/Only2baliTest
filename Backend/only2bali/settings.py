@@ -59,7 +59,7 @@ FRONTEND_URL = 'http://localhost:3000'  # Frontend URL for the reset page
 
 TWILIO_PHONE_NUMBER='+1 915 277 6125'
 
-ALLOWED_HOSTS = [ 'localhost', '127.0.0.1' ,'192.168.1.12','django-python-web-app-bnb4akd0b8e6aeh6.centralindia-01.azurewebsites.net']
+ALLOWED_HOSTS = [ 'localhost', '127.0.0.1' ,'192.168.1.12','pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net']
 
 
 # Application definition
