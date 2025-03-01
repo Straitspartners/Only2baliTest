@@ -35,17 +35,30 @@ STORAGES={
 }
 
 CONNECTION = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
-CONNECTION_STR = {pair.split('=')[0]:pair.split('=')[1] for pair in CONNECTION.split(' ')}
+if not CONNECTION:
+    raise ValueError("AZURE_POSTGRESQL_CONNECTIONSTRING environment variable is not set")
 
+# Parse the connection string into a dictionary
+CONNECTION_STR = {}
+
+# Split by spaces to separate key-value pairs
+for pair in CONNECTION.split(' '):
+    key_value = pair.split('=')
+    if len(key_value) == 2:
+        CONNECTION_STR[key_value[0]] = key_value[1]
+    else:
+        raise ValueError(f"Invalid connection string format: {pair}")
+
+# Now you can define your DATABASES configuration
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": CONNECTION_STR['dbname'],
-        "HOST": CONNECTION_STR['host'],
-        "USER": CONNECTION_STR['user'],
-        "PASSWORD": CONNECTION_STR['password'],
+        "NAME": CONNECTION_STR.get('dbname'),
+        "HOST": CONNECTION_STR.get('host'),
+        "USER": CONNECTION_STR.get('user'),
+        "PASSWORD": CONNECTION_STR.get('password'),
+        "PORT": CONNECTION_STR.get('port', '5432'),  # Default to 5432 if not provided
     }
 }
-
 
 STATIC_ROOT = BASE_DIR/'staticfiles'
