@@ -54,7 +54,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": CONNECTION_STR.get('dbname'),
-        "HOST": 'localhost',
+        "HOST": CONNECTION_STR.get('host'),
         "USER": CONNECTION_STR.get('user'),
         "PASSWORD": CONNECTION_STR.get('password'),
         "PORT": CONNECTION_STR.get('port', '5432'),  # Default to 5432 if not provided
