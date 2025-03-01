@@ -64,7 +64,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.1.12:8000/api/users/login/",
+        "https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/users/login/",
         loginData
       );
       if (response.data.tokens) {
@@ -91,7 +91,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.1.12:8000/api/users/login/",
+        "https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/users/login/",
         { identifier: formattedIdentifier, login_type: "otp" }
       );
       if (response.data.message === "OTP sent successfully.") {
