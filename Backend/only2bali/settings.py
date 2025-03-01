@@ -65,8 +65,8 @@ FRONTEND_URL = 'http://localhost:3000'  # Frontend URL for the reset page
 TWILIO_PHONE_NUMBER='+1 915 277 6125'
 
 ALLOWED_HOSTS = [ 'localhost', '127.0.0.1' ,'192.168.1.12','pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net']
-# CSRF_TRUSTED_ORIGINS=['https://'+os.environ['pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net']]
-CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('MY_AZURE_DOMAIN')]
+CSRF_TRUSTED_ORIGINS=['https://'+os.environ['WEBSITE_HOSTNAME']]
+
 # Application definition
 
 INSTALLED_APPS = [
