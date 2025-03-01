@@ -89,7 +89,7 @@ const BalineseAdventureForm = () => {
 
     try {
       const response = await axios.get(
-        `http://192.168.31.111:8000/api/journeys/travel-details/?journey_preferences_id=${journeyPreferencesId}`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/travel-details/?journey_preferences_id=${journeyPreferencesId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -159,7 +159,7 @@ const BalineseAdventureForm = () => {
     try {
       const response = existingData
         ? await axios.put(
-            `http://192.168.31.111:8000.111:8000/api/journeys/travel-details/`,
+            `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/travel-details/`,
             {
               journey_preferences_id: journeyPreferencesId,
               ...formData,
@@ -172,7 +172,7 @@ const BalineseAdventureForm = () => {
             }
           )
         : await axios.post(
-            "http://192.168.31.111:8000/api/journeys/travel-details/",
+            "https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/travel-details/",
             {
               journey_preferences_id: journeyPreferencesId,
               ...formData,
@@ -203,7 +203,7 @@ const BalineseAdventureForm = () => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.delete(
-        `http://192.168.31.111:8000/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

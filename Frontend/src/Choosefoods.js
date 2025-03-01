@@ -21,29 +21,29 @@ import food14 from "../src/Asset/food14.png";
 
 // Food categories
 const vegetarian = [
-  { id: 5, type: "north_indian", name: "North Indian Vegetarian", img: food1 },
-  { id: 6, type: "south_indian", name: "South Indian Vegetarian", img: food2 },
-  { id: 7, type: "gujarati", name: "Gujarati", img: food3 },
-  { id: 8, type: "jain", name: "Jain", img: food4 },
+  { id: 1, type: "north_indian", name: "North Indian Vegetarian", img: food1 },
+  { id: 2, type: "south_indian", name: "South Indian Vegetarian", img: food2 },
+  { id: 3, type: "gujarati", name: "Gujarati", img: food3 },
+  { id: 4, type: "jain", name: "Jain", img: food4 },
 ];
 
 const balinese = [
-  { id: 6, type: "jimbaran_seafood", name: "Jimbaran Seafood", img: food5 },
-  { id: 7, type: "balinese_culinary", name: "Balinese Culinary", img: food6 },
-  { id: 8, type: "indonesian_food", name: "Indonesian Food", img: food7 },
-  { id: 9, type: "local_snacks", name: "Local Snacks", img: food8 },
+  { id: 1, type: "jimbaran_seafood", name: "Jimbaran Seafood", img: food5 },
+  { id: 2, type: "balinese_culinary", name: "Balinese Culinary", img: food6 },
+  { id: 3, type: "indonesian_food", name: "Indonesian Food", img: food7 },
+  { id: 4, type: "local_snacks", name: "Local Snacks", img: food8 },
 ];
 
 const dietary = [
-  { id: 5, type: "vegan", name: "Vegan", img: food9 },
-  { id: 6, type: "keto", name: "Keto", img: food10 },
-  { id: 7, type: "halal", name: "Halal", img: food11 },
-  { id: 8, type: "souvenir", name: "Souvenir", img: food12 },
+  { id: 1, type: "vegan", name: "Vegan", img: food9 },
+  { id: 2, type: "keto", name: "Keto", img: food10 },
+  { id: 3, type: "halal", name: "Halal", img: food11 },
+  { id: 4, type: "souvenir", name: "Souvenir", img: food12 },
 ];
 
 const nonveg = [
-  { id: 3, type: "north_indian", name: "North Indian Non-Vegetarian", img: food13 },
-  { id: 4, type: "south_indian", name: "South Indian Non-Vegetarian", img: food14 },
+  { id: 1, type: "north_indian", name: "North Indian Non-Vegetarian", img: food13 },
+  { id: 2, type: "south_indian", name: "South Indian Non-Vegetarian", img: food14 },
 ];
 
 const Choosefoods = () => {
@@ -87,7 +87,7 @@ const Choosefoods = () => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.get(
-        `http://192.168.31.111:8000/api/journeys/food-preferences/?journey_preferences_id=${journeyPreferencesId}`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/food-preferences/?journey_preferences_id=${journeyPreferencesId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -113,7 +113,7 @@ const Choosefoods = () => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.delete(
-        `http://192.168.31.111:8000/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -133,7 +133,7 @@ const Choosefoods = () => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.put(
-        `http://192.168.31.111:8000/api/journeys/food-preferences/`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/food-preferences/`,
         payload,
         {
           headers: {
@@ -213,7 +213,7 @@ const Choosefoods = () => {
         await updateFoodPreferences(journeyPreferencesId, payload);
       } else {
         const response = await axios.post(
-          "http://192.168.31.111:8000/api/journeys/food-preferences/",
+          "https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/food-preferences/",
           payload,
           {
             headers: {

@@ -29,7 +29,7 @@ const ItineraryPage2 = () => {
         // Make an API call to your backend with the from_date and to_date parameters
         const token = localStorage.getItem("access_token");
         const response = await axios.get(
-          `http://192.168.31.111:8000/api/journeys/itinerary/?from_date=${fromDate}&to_date=${toDate}&international_airport=${internationalAirport}&crew_type_display=${crewType}`, 
+          `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/itinerary/?from_date=${fromDate}&to_date=${toDate}&international_airport=${internationalAirport}&crew_type_display=${crewType}`, 
           {
             headers: {
               Authorization: `Bearer ${token}`,

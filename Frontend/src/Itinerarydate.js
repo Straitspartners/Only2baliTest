@@ -42,7 +42,7 @@ const ItineraryDate = () => {
         const token = localStorage.getItem("access_token"); // Or replace this with how you store your token
 
         // Make a request to the DRF backend to fetch itinerary data with Authorization header
-        const response = await axios.get("http://192.168.31.111:8000/api/journeys/itinerarydate/", {
+        const response = await axios.get("https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/itinerarydate/", {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the request header
           },

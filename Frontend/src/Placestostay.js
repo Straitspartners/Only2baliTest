@@ -10,12 +10,12 @@ import stay5 from "../src/Asset/stay5.png";
 import stay6 from "../src/Asset/stay6.png";
 
 const categories = [
-  { id: 7, type: "hotel", name: "Hotel", img: stay1 },
-  { id: 8, type: "motel", name: "Motel", img: stay2 },
-  { id: 9, type: "villa", name: "Villa", img: stay3 },
-  { id: 10, type: "cottage", name: "Cottage", img: stay4 },
-  { id: 11, type: "apartment", name: "Apartment", img: stay5 },
-  { id: 12, type: "guesthouse", name: "Guesthouse", img: stay6 },
+  { id: 1, type: "hotel", name: "Hotel", img: stay1 },
+  { id: 2, type: "motel", name: "Motel", img: stay2 },
+  { id: 3, type: "villa", name: "Villa", img: stay3 },
+  { id: 4, type: "cottage", name: "Cottage", img: stay4 },
+  { id: 5, type: "apartment", name: "Apartment", img: stay5 },
+  { id: 6, type: "guesthouse", name: "Guesthouse", img: stay6 },
 ];
 
 const Placestostay = () => {
@@ -56,7 +56,7 @@ const Placestostay = () => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.get(
-        `http://192.168.31.111:8000/api/journeys/stay-preferences/?journey_preferences_id=${journeyPreferencesId}`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/stay-preferences/?journey_preferences_id=${journeyPreferencesId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -107,7 +107,7 @@ const Placestostay = () => {
     try {
       const response = existingStayPreferences
         ? await axios.put(
-            `http://192.168.31.111:8000/api/journeys/stay-preferences/`,
+            `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/stay-preferences/`,
             {
               journey_preferences_id: journeyPreferencesId,
               stay_type: selectedStays,
@@ -120,7 +120,7 @@ const Placestostay = () => {
             }
           )
         : await axios.post(
-            "http://192.168.31.111:8000/api/journeys/stay-preferences/",
+            "https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/stay-preferences/",
             {
               journey_preferences_id: journeyPreferencesId,
               stay_type: selectedStays,
@@ -155,7 +155,7 @@ const Placestostay = () => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.delete(
-        `http://192.168.31.111:8000/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -28,7 +28,7 @@ const PasswordReset = () => {
     };
     console.log('User Data:', userData); // Debugging log
 
-    axios.post('http://192.168.31.111:8000/api/users/password-reset-verify/', userData)
+    axios.post('https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/users/password-reset-verify/', userData)
       .then(response => {
         console.log('Response:', response);
         setMessage('Password reset successful. Please log in with your new password.');

@@ -19,7 +19,7 @@ const Forgetpassword = () => {
   const handleClick = () => {
     const userData = { email };
 
-    axios.post('http://192.168.31.111:8000/api/users/password-reset-request/', userData)
+    axios.post('https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/users/password-reset-request/', userData)
       .then(response => {
         setMessage('If the email is registered, you will receive a password reset link.');
         setError('');

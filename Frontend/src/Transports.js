@@ -10,12 +10,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const categories = [
-  { id: 8, type: "motorbike", name: "Motorbike > 1-2 People", img: vehicle1 },
-  { id: 9, type: "bus", name: "Bus >30 People", img: vehicle2 },
-  { id: 10, type: "minibus", name: "Mini Bus > 20-30 People", img: vehicle3 },
-  { id: 11, type: "van", name: "Van > 12-15 People", img: vehicle4 },
-  { id: 12, type: "car", name: "Car > 5-10 people", img: vehicle5 },
-  { id: 13, type: "luxury_car", name: "Luxury Car >5-8 people", img: vehicle6 },
+  { id: 1, type: "motorbike", name: "Motorbike > 1-2 People", img: vehicle1 },
+  { id: 2, type: "bus", name: "Bus >30 People", img: vehicle2 },
+  { id: 3, type: "minibus", name: "Mini Bus > 20-30 People", img: vehicle3 },
+  { id: 4, type: "van", name: "Van > 12-15 People", img: vehicle4 },
+  { id: 5, type: "car", name: "Car > 5-10 people", img: vehicle5 },
+  { id: 6, type: "luxury_car", name: "Luxury Car >5-8 people", img: vehicle6 },
 ];
 
 const Rents = [
@@ -69,7 +69,7 @@ const Transports = () => {
 
     try {
       const response = await axios.get(
-        `http://192.168.31.111:8000/api/journeys/vehicle-preferences/?journey_preferences_id=${journeyPreferencesId}`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/vehicle-preferences/?journey_preferences_id=${journeyPreferencesId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -95,7 +95,7 @@ const Transports = () => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.delete(
-        `http://192.168.31.111:8000/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -155,7 +155,7 @@ const Transports = () => {
       // Check if there are existing preferences and update (PUT) or create new (POST)
       if (existingPreferences) {
         const response = await axios.put(
-          `http://192.168.31.111:8000/api/journeys/vehicle-preferences/`,
+          `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/vehicle-preferences/`,
           payload,
           {
             headers: {
@@ -169,7 +169,7 @@ const Transports = () => {
         }
       } else {
         const response = await axios.post(
-          "http://192.168.31.111:8000/api/journeys/vehicle-preferences/",
+          "https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/vehicle-preferences/",
           payload,
           {
             headers: {

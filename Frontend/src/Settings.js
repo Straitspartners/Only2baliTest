@@ -45,7 +45,7 @@ const Setting = () => {
         }
     
         // Make the logout API call
-        const response = await fetch("http://192.168.31.111:8000/api/users/logout/", {
+        const response = await fetch("https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/users/logout/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -13,14 +13,14 @@ import shopping from "../src/Asset/shopping.png";
 import luxury from "../src/Asset/luxury.png";
 
 const categories = [
-  { id: 19, name: "Natural Beauty And Beaches", img: beaches },
-  { id: 20, name: "Local Cultures & Traditions", img: cultures },
-  { id: 21, name: "Wellness & Relaxation", img: wellness },
-  { id: 22, name: "Wedding & Pre-Wedding", img: wedding },
-  { id: 23, name: "Adventure & Activities", img: adventure },
-  { id: 24, name: "Local Culinary", img: culinary },
-  { id: 25, name: "Shopping In Bali", img: shopping },
-  { id: 26, name: "Luxury & Unique Experiences", img: luxury },
+  { id: 1, name: "Natural Beauty And Beaches", img: beaches },
+  { id: 2, name: "Local Cultures & Traditions", img: cultures },
+  { id: 3, name: "Wellness & Relaxation", img: wellness },
+  { id: 4, name: "Wedding & Pre-Wedding", img: wedding },
+  { id: 5, name: "Adventure & Activities", img: adventure },
+  { id: 6, name: "Local Culinary", img: culinary },
+  { id: 7, name: "Shopping In Bali", img: shopping },
+  { id: 8, name: "Luxury & Unique Experiences", img: luxury },
 ];
 
 const Placestovisit = () => {
@@ -60,7 +60,7 @@ const Placestovisit = () => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.get(
-        `http://192.168.31.111:8000/api/journeys/places-to-visit/?journey_preferences_id=${journeyPreferencesId}`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/places-to-visit/?journey_preferences_id=${journeyPreferencesId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -106,7 +106,7 @@ const Placestovisit = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.31.111:8000/api/journeys/places-to-visit/",
+        "https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/places-to-visit/",
         {
           journey_preferences_id: journeyPreferencesId,
           place: selectedPlaces,
@@ -150,7 +150,7 @@ const Placestovisit = () => {
 
     try {
       const response = await axios.put(
-        `http://192.168.31.111:8000/api/journeys/places-to-visit/`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/places-to-visit/`,
         {
           journey_preferences_id: journeyPreferencesId,
           place: selectedPlaces,
@@ -182,7 +182,7 @@ const Placestovisit = () => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.delete(
-        `http://192.168.31.111:8000/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

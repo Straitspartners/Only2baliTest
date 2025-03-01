@@ -4,9 +4,9 @@ import axios from "axios";
 import "./paperwork.css";
 
 const assistanceTypes = [
-  { id: 5, name: "KYC Integration" },
-  { id: 6, name: "Visa Processing Assistance" },
-  { id: 7, name: "Travel Requirement Guidance" },
+  { id: 1, name: "KYC Integration" },
+  { id: 2, name: "Visa Processing Assistance" },
+  { id: 3, name: "Travel Requirement Guidance" },
 ];
 
 const Paperwork = () => {
@@ -48,7 +48,7 @@ const Paperwork = () => {
 
     try {
       const response = await axios.get(
-        `http://192.168.31.111:8000/api/journeys/paperwork-assistance/?journey_preferences_id=${journeyPreferencesId}`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/paperwork-assistance/?journey_preferences_id=${journeyPreferencesId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -73,7 +73,7 @@ const Paperwork = () => {
 
     try {
       const response = await axios.delete(
-        `http://192.168.31.111:8000/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/journey_preferences/delete/${journeyPreferencesId}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -128,7 +128,7 @@ const Paperwork = () => {
       // Check if there are existing preferences and update (PUT) or create new (POST)
       if (existingPreferences) {
         const response = await axios.put(
-          `http://192.168.31.111:8000/api/journeys/paperwork-assistance/`,
+          `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/paperwork-assistance/`,
           payload,
           {
             headers: {
@@ -142,7 +142,7 @@ const Paperwork = () => {
         }
       } else {
         const response = await axios.post(
-          "http://192.168.31.111:8000/api/journeys/paperwork-assistance/",
+          "https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/paperwork-assistance/",
           payload,
           {
             headers: {

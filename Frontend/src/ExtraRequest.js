@@ -39,7 +39,7 @@ const ExtraRequest = () => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.get(
-        `http://192.168.31.111:8000/api/journeys/extra-requests/?journey_preferences_id=${id}`,
+        `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/extra-requests/?journey_preferences_id=${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -86,7 +86,7 @@ const ExtraRequest = () => {
     try {
       if (existingRequest) {
         const response = await axios.put(
-          `http://192.168.31.111:8000/api/journeys/extra-requests/`,
+          `https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/extra-requests/`,
           payload,
           {
             headers: {
@@ -100,7 +100,7 @@ const ExtraRequest = () => {
         }
       } else {
         const response = await axios.post(
-          "http://192.168.31.111:8000/api/journeys/extra-requests/",
+          "https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/extra-requests/",
           payload,
           {
             headers: {

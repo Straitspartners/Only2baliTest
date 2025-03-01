@@ -21,7 +21,7 @@ const OtpContainer = () => {
     const userData = { otp };
 
     axios
-      .post(`http://192.168.1.12:8000/api/users/verify-otp/${mobile_number}/`, userData)
+      .post(`https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/users/verify-otp/${mobile_number}/`, userData)
       .then((response) => {
         setMessage("Your registration has been successfully completed.");
         setError("");
