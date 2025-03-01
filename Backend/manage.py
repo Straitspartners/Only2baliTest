@@ -28,7 +28,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    settings_module = 'only2bali.deployment' if 'WEBSITE_HOSTNAME' in os.environ else 'only2bali.settings'
+    settings_module = 'only2bali.deployment' if 'pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net' in os.environ else 'only2bali.settings'
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
     try:
         from django.core.management import execute_from_command_line
