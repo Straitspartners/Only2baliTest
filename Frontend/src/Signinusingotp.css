@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.OTP-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url("Asset/Signupbg.jpeg") no-repeat center center / cover;
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.OTP-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.OTP-section-h2 {
+  margin: 0;
+  font-size: 30px;
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+}
+
+.OTP-overlay {
+  width: 50%; /* Adapts to smaller screens while maintaining a good size */
+  max-width: 500px; /* Adjust max width for better scaling */
+  padding: 50px; /* Increase padding for better spacing */
+  border-radius: 16px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.39);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.1px);
+  -webkit-backdrop-filter: blur(7.1px);
+  border: 2px solid rgba(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.OTP-form {
+  width: 100%; /* Ensure the form takes full width */
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Increase spacing between inputs for better visibility */
+  align-items: center;
+}
+
+h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+p {
+  margin: 0;
+  font-size: 20px;
+  color: #ffffff;
+  width: 100%;
+}
+
+.otp-inputs- {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Add space between inputs */
+  justify-content: center;
+  align-items: center; /* Center the inputs horizontally */
+}
+
+.otp-inputs- input {
+  width: 50%; /* Ensure the input takes full width */
+  max-width: 300px; /* Adjust max width for better scaling */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 18px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  background-color: transparent;
+}
+
+.otp-inputs- input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.resend {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.resend span {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+::placeholder {
+  color: #ffffff;
+}
+
+.register-btn {
+  background-color: #ffffff;
+  color: #4b352d;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 25px;
+}

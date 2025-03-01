@@ -1,0 +1,175 @@
+.adventure-form {
+  background-image: url("Asset/bgflight.png");
+  color: white;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+}
+
+.adventure-form h2 {
+  margin-top: 150px;
+  font-size: 2.4rem;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.ba-p {
+  color: white;
+}
+
+.adventure-form p {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.form-actions .btn {
+  font-size: 1.2rem;
+  padding: 15px 15px;
+  border-radius: 25px;
+}
+
+.form-label {
+  color: white;
+  font-weight: bold;
+  text-align: left;
+}
+
+.Bd-btn {
+  display: flex;
+  justify-content: center;
+}
+
+/* Media Queries for responsiveness */
+
+/* Large Tablets (max-width: 1200px) */
+@media (max-width: 1200px) {
+  .adventure-form {
+      height: 500px;
+      padding: 40px;
+      min-height: 150vh;
+  }
+
+  .adventure-form h2 {
+      font-size: 2rem;
+      margin-top: 100px;
+  }
+
+  .form-actions .btn {
+      font-size: 1.1rem;
+      padding: 12px 15px;
+  }
+}
+
+/* Tablets (max-width: 992px) */
+@media (max-width: 992px) {
+  .adventure-form {
+      height: 550px;
+      padding: 30px;
+  }
+
+  .adventure-form h2 {
+      font-size: 1.8rem;
+      margin-top: 80px;
+  }
+
+  .adventure-form p {
+      font-size: 1.1rem;
+  }
+
+  .form-actions {
+      flex-direction: row;
+      gap: 20px;
+  }
+
+  .form-actions .btn {
+      font-size: 1.1rem;
+      padding: 12px 20px;
+  }
+}
+
+/* Medium Tablets or Large Phones (max-width: 768px) */
+@media (max-width: 768px) {
+  .adventure-form {
+      height: 450px;
+      padding: 25px;
+  }
+
+  .adventure-form h2 {
+      font-size: 1.7rem;
+      margin-top: 60px;
+  }
+
+  .adventure-form p {
+      font-size: 1rem;
+  }
+
+  .form-actions {
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+  }
+
+  .form-actions .btn {
+      font-size: 1rem;
+      padding: 12px 25px;
+      width: 100%;
+  }
+}
+
+/* Small Tablets or Large Phones (max-width: 600px) */
+@media (max-width: 600px) {
+  .adventure-form {
+      height: 400px;
+      padding: 20px;
+  }
+
+  .adventure-form h2 {
+      font-size: 1.5rem;
+      margin-top: 50px;
+  }
+
+  .adventure-form p {
+      font-size: 0.9rem;
+  }
+
+  .form-actions .btn {
+      font-size: 1rem;
+      padding: 10px 20px;
+      width: 100%;
+  }
+}
+
+/* Small Phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .adventure-form {
+      height: 350px;
+      padding: 15px;
+  }
+
+  .adventure-form h2 {
+      font-size: 1.3rem;
+      margin-top: 40px;
+  }
+
+  .adventure-form p {
+      font-size: 0.8rem;
+  }
+
+  .form-actions .btn {
+      font-size: 0.9rem;
+      padding: 8px 15px;
+      width: 100%;
+  }
+}
