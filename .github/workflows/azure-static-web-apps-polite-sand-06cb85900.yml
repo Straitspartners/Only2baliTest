@@ -31,7 +31,10 @@ jobs:
           npm install
 
       - name: Run build with linting disabled
-        run: CI=false npm run build
+        run: |
+          cd Frontend
+          GENERATE_SOURCEMAP=false CI=false npm run build
+          
           
       - name: Build And Deploy
         id: builddeploy
