@@ -31,6 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = "django-insecure-#%+v7yrj)fqc9@w8=tf^1blsr@x#p!3b+0=@%3%m3tqi)a9xr0"
 
 SECRET_KEY = os.environ['MY_SECRET_KEY']
+CSRF_TRUSTED_ORIGINS=['https://'+os.environ['pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net']]
 
 # AVIATIONSTACK_API_KEY = '77a30f0f78f6d8f3e75b6089a9427308'
 # SECURITY WARNING: don't run with debug turned on in production!
