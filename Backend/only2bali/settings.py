@@ -35,7 +35,7 @@ CSRF_TRUSTED_ORIGINS=['https://'+os.environ['pybackend-eeamcqf4evb6hacn.centrali
 
 # AVIATIONSTACK_API_KEY = '77a30f0f78f6d8f3e75b6089a9427308'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 # Email configuration (adjust for your email service provider)
 # #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Use SMTP for real emails
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
