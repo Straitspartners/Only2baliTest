@@ -2,12 +2,12 @@
     "routes": [
       {
         "route": "/signup",
-        "serve": "/index.html",
+        "serve": "/index.js",
         "statusCode": 200
       },
       {
         "route": "/*",
-        "serve": "/index.html",
+        "serve": "/index.js",
         "statusCode": 200
       }
     ]
