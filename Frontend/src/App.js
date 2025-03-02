@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Router, Routes, Route } from 'react-router-dom';
 import HomePage from './Pages/Home';
 import OtpContainer from './Otpverfication';  // Ensure this is Otpverfication.js, not Otpverfication.js
 import SignUp from './SignUp';  // Ensure this is SignUp.js, not Signup.js
