@@ -1,0 +1,12 @@
+{
+
+    "routes":[
+     {   
+    "route": "/*",
+    "serve": "/index.js",
+    "statusCode": 200
+
+    }
+    ]
+    
+    }
