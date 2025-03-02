@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import HomePage from './Pages/Home';
 import OtpContainer from './Otpverfication';  // Ensure this is Otpverfication.js, not Otpverfication.js
 import SignUp from './SignUp';  // Ensure this is SignUp.js, not Signup.js
@@ -31,7 +31,6 @@ function App() {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <Router scrollRestoration="manual">
 
       <Routes scrollRestoration="auto">
         <Route path="/" element={<HomePage />} />
@@ -61,7 +60,7 @@ function App() {
         <Route path='/AllItineraryPages' element={<AllItineraryPages/>} />
        
       </Routes>
-    </Router>
+    
   );
 }
 
