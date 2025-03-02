@@ -32,7 +32,7 @@ function App() {
   }, []);
   return (
 
-      <Routes scrollRestoration="auto">
+      <Routes >
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/otpverfication" element={<OtpContainer />} />
