@@ -6,10 +6,9 @@ import App from './App';
 
 // Wrap the App component with BrowserRouter
 ReactDOM.render(
-  <React.StrictMode>
+
     <BrowserRouter>
       <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
   document.getElementById('root')
 );
