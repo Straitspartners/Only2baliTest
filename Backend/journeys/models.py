@@ -20,7 +20,7 @@ class JourneyPreferences(models.Model):
     age = models.IntegerField()
     occupation = models.CharField(max_length=150)
     number_of_people = models.IntegerField(default=1)
-    times_visited_bali = models.IntegerField(default=0)
+    times_visited_bali = models.CharField(max_length=150)
     crew_type = models.CharField(max_length=50, choices=CREW_TYPE_CHOICES)
     crew_type_others = models.CharField(max_length=150, blank=True, null=True)
     confirmed = models.BooleanField(default=False)

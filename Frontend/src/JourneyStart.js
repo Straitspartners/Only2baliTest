@@ -283,11 +283,13 @@ const JourneyStart = () => {
                     onChange={handleChange}
                     placeholder="Type Something..."
                     required
+                    min="1"
+                    max="99"
                   />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="occupation" className="form-label">
-                    What Do You Do for Living?
+                    What is your profession?
                   </label>
                   <input
                     type="text"
@@ -313,13 +315,15 @@ const JourneyStart = () => {
                     onChange={handleChange}
                     placeholder="Type Something..."
                     required
+                    min="1"
+                    max="100"
                   />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="times_visited_bali" className="form-label">
                     How Many Times Have You Been to Bali?
                   </label>
-                  <input
+                  <select
                     type="number"
                     className="form-control"
                     id="times_visited_bali"
@@ -328,7 +332,12 @@ const JourneyStart = () => {
                     onChange={handleChange}
                     placeholder="Type Something..."
                     required
-                  />
+                  >
+                    <option value="">Select an option</option>
+    <option value="first_time">First Time</option>
+    <option value="more_than_5_times">More than 5 times</option>
+    <option value="frequently_visit">Frequently visit</option>
+  </select>
                 </div>
               </form>
             </div>
