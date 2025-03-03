@@ -4,6 +4,21 @@
       "route": "/{*}",
       "serve": "/index.html",
       "statusCode": 200
+    },
+    {
+      "route": "/images/*",
+      "serve": "/images/*",
+      "statusCode": 200
+    },
+    {
+      "route": "/styles/*",
+      "serve": "/styles/*",
+      "statusCode": 200
+    },
+    {
+      "route": "/assets/*",
+      "serve": "/assets/*",
+      "statusCode": 200
     }
   ],
   "navigationFallback": {
