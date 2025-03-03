@@ -1,28 +1,13 @@
 {
   "routes": [
     {
-      "route": "/{*}",
+      "route": "/*",
       "serve": "/index.html",
-      "statusCode": 200
-    },
-    {
-      "route": "/images/*.{png,jpg,jpeg,gif,svg}",
-      "serve": "/images/*",
-      "statusCode": 200
-    },
-    {
-      "route": "/styles/*.{css}",
-      "serve": "/styles/*",
-      "statusCode": 200
-    },
-    {
-      "route": "/assets/*.{js,css}",
-      "serve": "/assets/*",
       "statusCode": 200
     }
   ],
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/images/*", "/styles/*", "/assets/*"]
+    "statusCode": 200
   }
 }
