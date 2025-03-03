@@ -17,6 +17,8 @@ import os
 
 load_dotenv()
 
+TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
+TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,12 +31,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = "django-insecure-#%+v7yrj)fqc9@w8=tf^1blsr@x#p!3b+0=@%3%m3tqi)a9xr0"
 
 SECRET_KEY = os.environ['MY_SECRET_KEY']
-# SECRET_KEY = os.getenv('MY_SECRET_KEY')
 
 
+# AVIATIONSTACK_API_KEY = '77a30f0f78f6d8f3e75b6089a9427308'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
+# Email configuration (adjust for your email service provider)
+# #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Use SMTP for real emails
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'  # Change to your email service provider
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'samplebali121@gmail.com'  # Use your email here
+# EMAIL_HOST_PASSWORD = 'pado vlom rabv kddy'  # Use your email password
+# # DEFAULT_FROM_EMAIL = 'your-email@gmail.com'  # Default sender email
 
 
 # Email configuration (adjust for your email service provider)
@@ -55,8 +65,7 @@ FRONTEND_URL = 'http://localhost:3000'  # Frontend URL for the reset page
 TWILIO_PHONE_NUMBER='+1 915 277 6125'
 
 ALLOWED_HOSTS = [ 'localhost', '127.0.0.1' ,'192.168.1.12','pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net']
-# CSRF_TRUSTED_ORIGINS=['https://'+os.environ['WEBSITE_HOSTNAME']]
-CSRF_TRUSTED_ORIGINS=['https://'+os.environ['pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net']]
+CSRF_TRUSTED_ORIGINS=['https://'+os.environ['WEBSITE_HOSTNAME']]
 
 # Application definition
 
@@ -227,13 +236,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = "static/"
-
 STORAGES={
 	"default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -244,7 +246,10 @@ STORAGES={
 	
 }
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+STATIC_URL = "static/"
 # settings.py
 
 
