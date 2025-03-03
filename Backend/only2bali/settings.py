@@ -174,7 +174,7 @@ WSGI_APPLICATION = "only2bali.wsgi.application"
 #         'PORT': '5432',  # Default PostgreSQL port
 #     }
 # }
-CONNECTION = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
+CONNECTION = os.getenv['AZURE_POSTGRESQL_CONNECTIONSTRING']
 if not CONNECTION:
     raise ValueError("AZURE_POSTGRESQL_CONNECTIONSTRING environment variable is not set")
 
@@ -236,8 +236,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Static files will be collected here
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STORAGES={
+	"default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+	
+}
+
 
 # settings.py
 
