@@ -6,17 +6,17 @@
       "statusCode": 200
     },
     {
-      "route": "/images/*",
+      "route": "/images/*.{png,jpg,jpeg,gif,svg}",
       "serve": "/images/*",
       "statusCode": 200
     },
     {
-      "route": "/styles/*",
+      "route": "/styles/*.{css}",
       "serve": "/styles/*",
       "statusCode": 200
     },
     {
-      "route": "/assets/*",
+      "route": "/assets/*.{js,css}",
       "serve": "/assets/*",
       "statusCode": 200
     }
