@@ -28,8 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECRET_KEY = "django-insecure-#%+v7yrj)fqc9@w8=tf^1blsr@x#p!3b+0=@%3%m3tqi)a9xr0"
 
-# SECRET_KEY = os.environ['MY_SECRET_KEY']
-SECRET_KEY = os.getenv('MY_SECRET_KEY')
+SECRET_KEY = os.environ['MY_SECRET_KEY']
+# SECRET_KEY = os.getenv('MY_SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -56,9 +56,7 @@ TWILIO_PHONE_NUMBER='+1 915 277 6125'
 
 ALLOWED_HOSTS = [ 'localhost', '127.0.0.1' ,'192.168.1.12','pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net']
 # CSRF_TRUSTED_ORIGINS=['https://'+os.environ['WEBSITE_HOSTNAME']]
-
-WEBSITE_HOSTNAME = os.getenv('WEBSITE_HOSTNAME', 'localhost')  # Default to 'localhost' for local development
-CSRF_TRUSTED_ORIGINS = [f'https://{WEBSITE_HOSTNAME}']
+CSRF_TRUSTED_ORIGINS=['https://'+os.environ['pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net']]
 
 # Application definition
 
@@ -93,7 +91,6 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -174,7 +171,7 @@ WSGI_APPLICATION = "only2bali.wsgi.application"
 #         'PORT': '5432',  # Default PostgreSQL port
 #     }
 # }
-CONNECTION = os.getenv['AZURE_POSTGRESQL_CONNECTIONSTRING']
+CONNECTION = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
 if not CONNECTION:
     raise ValueError("AZURE_POSTGRESQL_CONNECTIONSTRING environment variable is not set")
 
