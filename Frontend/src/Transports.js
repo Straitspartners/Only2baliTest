@@ -252,15 +252,6 @@ const Transports = () => {
               style={{ justifySelf: "center", textAlign: "center" }}
             >
               <br />
-              <input
-                type="text"
-                className="ts-form-control"
-                id="name"
-                name="name"
-                placeholder="Type Something..."
-                value={otherPeriod}
-                onChange={(e) => setOtherPeriod(e.target.value)}
-              />
             </div>
           </form>
           <h4 className="ts-h4">Include Driver?</h4>

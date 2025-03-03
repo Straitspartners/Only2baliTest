@@ -177,7 +177,7 @@ const Placestostay = () => {
   </div>
       <h1 className="ptv-h1">Where You'd Say Goodnight to Your Beloved Ones?</h1>
       <p className="ptv-p">
-        Select up to 2 places where you'd like to stay
+      Choose any two of your accommodation preferences.
       </p>
       <div className="grid">
         {categories.map((category) => (
