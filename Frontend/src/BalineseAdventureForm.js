@@ -232,7 +232,7 @@ const BalineseAdventureForm = () => {
         <div className="row">
           <div className="form-actions">
             <div className="col-md-3 ">
-              <label className="form-label">From Date</label>
+              <label className="form-label">From</label>
               <input
                 type="date"
                 name="from_date"
