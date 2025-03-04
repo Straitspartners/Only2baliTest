@@ -389,7 +389,7 @@ const BalineseAdventureForm = () => {
       const response = await axios.get("https://api.aviationstack.com/v1/airports?access_key=77a30f0f78f6d8f3e75b6089a9427308");
       
       // Filter and set the airports from India (you can adjust the structure based on the actual API response)
-      const indiaAirports = response.data.data.filter(airport => airport.country === "India");
+      const indiaAirports = response.data.data.filter(airport => airport.country === "Indonesia");
       setAirports(indiaAirports); // Store only Indian airports in the state
     } catch (err) {
       console.error("Error fetching airports:", err);
