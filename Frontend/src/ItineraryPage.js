@@ -217,7 +217,7 @@ const ItineraryPage = () => {
     <div className="it-container">
       <div ><img className="it-hero" src={ithero} alt=""></img> </div>
       <div className="it-content">
-        <h2 className="it-h2">Final Itinerary</h2>
+        <h2 className="it-h2">Proposed Itinerary</h2>
         <div className="it-timeline">
           {journeyPreferences?.placestovisit_preferences.map((item, index) => (
             <div
