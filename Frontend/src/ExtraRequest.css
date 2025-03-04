@@ -64,3 +64,18 @@
     background-color: #FFC107;
   }
   
+
+  .skip-button {
+    background-color: #f1f1f1;
+    color: #000;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .skip-button:hover {
+    background-color: #ddd;
+  }
+  
