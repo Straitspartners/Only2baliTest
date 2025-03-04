@@ -231,7 +231,7 @@ const Transports = () => {
           </div>
         </div>
         <div className="section section-40">
-          <h4 className="ts-h4">Rent Period?</h4>
+          <h4 className="ts-h4">Rent Duration?</h4>
           <div className="tp-grid">
             {Rents.map((rent) => (
               <div className="card" key={rent.id}>
