@@ -70,12 +70,6 @@ const ExtraRequest = () => {
       return;
     }
 
-    if (!request.trim()) {
-      setError("Please enter a request");
-      setShowErrorPopup(true);
-      return;
-    }
-
     setIsLoading(true);
     const token = localStorage.getItem("access_token");
     const payload = {
