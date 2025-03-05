@@ -59,20 +59,20 @@ class PlacesToVisit(models.Model):
     
 # 7. Travel Details Model
 class TravelDetails(models.Model):
-    AIRPORT_CHOICES = [
-    ('Indira Gandhi International Airport (Delhi)', 'Indira Gandhi International Airport (Delhi)'),
-    ('Chhatrapati Shivaji Maharaj International Airport (Mumbai)', 'Chhatrapati Shivaji Maharaj International Airport (Mumbai)'),
-    ('Kempegowda International Airport (Bangalore)', 'Kempegowda International Airport (Bangalore)'),
-    ('Netaji Subhas Chandra Bose International Airport (Kolkata)', 'Netaji Subhas Chandra Bose International Airport (Kolkata)'),
-    ('Chennai International Airport (Chennai)', 'Chennai International Airport (Chennai)'),
-    ('Rajiv Gandhi International Airport (Hyderabad)', 'Rajiv Gandhi International Airport (Hyderabad)'),
-    ('Sardar Vallabhbhai Patel International Airport (Ahmedabad)', 'Sardar Vallabhbhai Patel International Airport (Ahmedabad)'),
-]
+#     AIRPORT_CHOICES = [
+#     ('Indira Gandhi International Airport (Delhi)', 'Indira Gandhi International Airport (Delhi)'),
+#     ('Chhatrapati Shivaji Maharaj International Airport (Mumbai)', 'Chhatrapati Shivaji Maharaj International Airport (Mumbai)'),
+#     ('Kempegowda International Airport (Bangalore)', 'Kempegowda International Airport (Bangalore)'),
+#     ('Netaji Subhas Chandra Bose International Airport (Kolkata)', 'Netaji Subhas Chandra Bose International Airport (Kolkata)'),
+#     ('Chennai International Airport (Chennai)', 'Chennai International Airport (Chennai)'),
+#     ('Rajiv Gandhi International Airport (Hyderabad)', 'Rajiv Gandhi International Airport (Hyderabad)'),
+#     ('Sardar Vallabhbhai Patel International Airport (Ahmedabad)', 'Sardar Vallabhbhai Patel International Airport (Ahmedabad)'),
+# ]
 
     journey_preferences = models.OneToOneField(JourneyPreferences, on_delete=models.CASCADE)
     from_date = models.DateField()
     to_date = models.DateField()
-    international_airport = models.CharField(max_length=100 , choices=AIRPORT_CHOICES)
+    international_airport = models.CharField(max_length=100 )
     flight_class = models.CharField(max_length=50)
 
     def __str__(self):
