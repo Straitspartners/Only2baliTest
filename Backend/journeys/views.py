@@ -549,7 +549,7 @@ def confirm_journey(request, journey_id):
             subject=subject,
             body=body,
             from_email=settings.EMAIL_HOST_USER,  # Replace with your email
-            to=[request.user.email],
+            to=[settings.EMAIL_HOST_USER],
         )
 
         # Attach the PDF file
