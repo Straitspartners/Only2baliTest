@@ -524,6 +524,7 @@ def generate_pdf(journey):
     buffer.seek(0)
     return buffer
 
+from django.conf import settings
 
 @api_view(["PATCH"])
 @permission_classes([IsAuthenticated])
@@ -541,13 +542,13 @@ def confirm_journey(request, journey_id):
 
         # Prepare the email subject and body
         subject = "Journey Confirmation"
-        body = f"Hello {request.user.first_name},\n\nYour journey has been successfully confirmed. Please find the journey details attached."
+        body = f"Hello ,\n\nYour journey has been successfully confirmed. Please find the journey details attached."
 
         # Create the email message
         email = EmailMessage(
             subject=subject,
             body=body,
-            from_email="admin@only2bali.com",  # Replace with your email
+            from_email=settings.EMAIL_HOST_USER,  # Replace with your email
             to=[request.user.email],
         )
 
