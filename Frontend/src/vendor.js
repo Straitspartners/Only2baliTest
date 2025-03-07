@@ -8,7 +8,8 @@ import utensils from "../src/Asset/utensilsvendors.png";
 import travel from "../src/Asset/travelagent.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import leftbtn from "../src/Asset/Button 2.png";
+import rightbtn from "../src/Asset/Button 3.png";
 const vendors = [
 
   { id: 4, type: "event_organizer", name: "Event Organizer", img: organizer },
@@ -182,16 +183,33 @@ const Vendor = () => {
           </div>
         ))}
       </div>
-
+      <div className="nxt-btn">
+  <button
+    onClick={() => navigate(-1)}
+    disabled={isLoading}
+    className="nxt-btns"
+  >
+    <img
+      src={leftbtn}
+      alt="icon"
+      style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+    />
+  </button>
       <button
         type="button"
         onClick={handleSubmit}
-        className="Go-next"
+          className="nxt-btns"
         disabled={isLoading}
       >
-        {isLoading ? "Submitting..." : "Go Next"}
+        {isLoading ? "..." : ""}
+        <img
+              src={rightbtn}
+              alt="icon"
+              style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+            />
       </button>
-
+   
+</div>
       {/* {error && (
         // <div className="popup-overlay">
         //   <div className="popup">

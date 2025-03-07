@@ -9,6 +9,9 @@ import stay4 from "../src/Asset/stay4.png";
 import stay5 from "../src/Asset/stay5.png";
 import stay6 from "../src/Asset/stay6.png";
 
+import leftbtn from "../src/Asset/Button 2.png";
+import rightbtn from "../src/Asset/Button 3.png";
+
 const categories = [
   { id: 1, type: "hotel", name: "Hotel", img: stay1 },
   { id: 2, type: "motel", name: "Motel", img: stay2 },
@@ -209,15 +212,34 @@ const Placestostay = () => {
           </div>
         ))}
       </div>
+  
+
+<div className="nxt-btn">
+  <button
+    onClick={() => navigate(-1)}
+    disabled={isLoading}
+    className="nxt-btns"
+  >
+    <img
+      src={leftbtn}
+      alt="icon"
+      style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+    />
+  </button>
       <button
   type="button"
   onClick={handleSubmit}
-  className="Go-next"
+  className="nxt-btns"
   disabled={isLoading}
 >
-  {isLoading ? "Submitting..." : "Go Next"}
+  {isLoading ? "..." : ""}
+  <img
+              src={rightbtn}
+              alt="icon"
+              style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+            />
 </button>
-
+</div>    <br></br>
       {/* Error Popup */}
       {showErrorPopup && (
         <div className="popup-overlay">

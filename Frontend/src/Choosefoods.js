@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Choosefoods.css";
-
+import leftbtn from "../src/Asset/Button 2.png";
+import rightbtn from "../src/Asset/Button 3.png";
 // Import images
 import food1 from "../src/Asset/food1.png";
 import food2 from "../src/Asset/food2.png";
@@ -336,16 +337,34 @@ const Choosefoods = () => {
       <div className="selection-info">
         Selected: {Object.values(selectedFoods).flat().length}/4
       </div>
+      <br></br>
 
+<div className="nxt-btn">
+  <button
+    onClick={() => navigate(-1)}
+    disabled={isLoading}
+    className="nxt-btns"
+  >
+    <img
+      src={leftbtn}
+      alt="icon"
+      style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+    />
+  </button>
       <button
         type="button"
         onClick={handleSubmit}
-        className="Go-next"
+     className="nxt-btns"
         disabled={isLoading} // Removed the check for no selections to allow error popup.
       >
-        {isLoading ? "Submitting..." : "Go Next"}
+        {isLoading ? "..." : ""}
+        <img
+              src={rightbtn}
+              alt="icon"
+              style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+            />
       </button>
-
+</div>
       {error && (
         <div className="popup-overlay">
           <div className="popup">

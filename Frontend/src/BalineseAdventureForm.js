@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import leftbtn from "../src/Asset/Button 2.png";
+import rightbtn from "../src/Asset/Button 3.png";
+
 const BalineseAdventureForm = () => {
   const [formData, setFormData] = useState({
     from_date: "",
@@ -12,183 +15,185 @@ const BalineseAdventureForm = () => {
   });
   const airports = [
     {
-      icao_code: 'VOBZ',
-      airport_name: 'Coimbatore International Airport (Coimbatore)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOBZ",
+      airport_name: "Coimbatore International Airport (Coimbatore)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VOMM',
-      airport_name: 'Chennai International Airport (Chennai)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOMM",
+      airport_name: "Chennai International Airport (Chennai)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VOMD',
-      airport_name: 'Madurai International Airport (Madurai)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOMD",
+      airport_name: "Madurai International Airport (Madurai)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VIDP',
-      airport_name: 'Indira Gandhi International Airport (New Delhi)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VIDP",
+      airport_name: "Indira Gandhi International Airport (New Delhi)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VABB',
-      airport_name: 'Chhatrapati Shivaji Maharaj International Airport (Mumbai)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VABB",
+      airport_name:
+        "Chhatrapati Shivaji Maharaj International Airport (Mumbai)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VOBL',
-      airport_name: 'Kempegowda International Airport (Bengaluru)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOBL",
+      airport_name: "Kempegowda International Airport (Bengaluru)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VECC',
-      airport_name: 'Netaji Subhas Chandra Bose International Airport (Kolkata)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VECC",
+      airport_name:
+        "Netaji Subhas Chandra Bose International Airport (Kolkata)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VOHS',
-      airport_name: 'Rajiv Gandhi International Airport (Hyderabad)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOHS",
+      airport_name: "Rajiv Gandhi International Airport (Hyderabad)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VAAH',
-      airport_name: 'Sardar Vallabhbhai Patel International Airport (Ahmedabad)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VAAH",
+      airport_name:
+        "Sardar Vallabhbhai Patel International Airport (Ahmedabad)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VAPO',
-      airport_name: 'Pune International Airport (Pune)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VAPO",
+      airport_name: "Pune International Airport (Pune)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VOCI',
-      airport_name: 'Cochin International Airport (Kochi)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOCI",
+      airport_name: "Cochin International Airport (Kochi)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VOGO',
-      airport_name: 'Goa International Airport (Dabolim, Goa)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOGO",
+      airport_name: "Goa International Airport (Dabolim, Goa)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VOTV',
-      airport_name: 'Trivandrum International Airport (Thiruvananthapuram)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOTV",
+      airport_name: "Trivandrum International Airport (Thiruvananthapuram)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VOML',
-      airport_name: 'Mangalore International Airport (Mangalore)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOML",
+      airport_name: "Mangalore International Airport (Mangalore)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VIJP',
-      airport_name: 'Jaipur International Airport (Jaipur)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VIJP",
+      airport_name: "Jaipur International Airport (Jaipur)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VEBS',
-      airport_name: 'Biju Patnaik International Airport (Bhubaneswar)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VEBS",
+      airport_name: "Biju Patnaik International Airport (Bhubaneswar)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VOVZ',
-      airport_name: 'Visakhapatnam International Airport (Visakhapatnam)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOVZ",
+      airport_name: "Visakhapatnam International Airport (Visakhapatnam)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VISR',
-      airport_name: 'Srinagar International Airport (Srinagar)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VISR",
+      airport_name: "Srinagar International Airport (Srinagar)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VILK',
-      airport_name: 'Lucknow International Airport (Lucknow)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VILK",
+      airport_name: "Lucknow International Airport (Lucknow)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VICG',
-      airport_name: 'Chandigarh International Airport (Chandigarh)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VICG",
+      airport_name: "Chandigarh International Airport (Chandigarh)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VABO',
-      airport_name: 'Vadodara International Airport (Vadodara)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VABO",
+      airport_name: "Vadodara International Airport (Vadodara)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VAST',
-      airport_name: 'Surat International Airport (Surat)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VAST",
+      airport_name: "Surat International Airport (Surat)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VEIM',
-      airport_name: 'Imphal International Airport (Imphal)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VEIM",
+      airport_name: "Imphal International Airport (Imphal)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VEBD',
-      airport_name: 'Bagdogra International Airport (Bagdogra)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VEBD",
+      airport_name: "Bagdogra International Airport (Bagdogra)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VEGY',
-      airport_name: 'Gaya International Airport (Gaya)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VEGY",
+      airport_name: "Gaya International Airport (Gaya)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VORJ',
-      airport_name: 'Rajahmundry Airport (Rajahmundry)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VORJ",
+      airport_name: "Rajahmundry Airport (Rajahmundry)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VIDO',
-      airport_name: 'Dehradun Airport (Dehradun)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VIDO",
+      airport_name: "Dehradun Airport (Dehradun)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VIJU',
-      airport_name: 'Jammu Airport (Jammu)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VIJU",
+      airport_name: "Jammu Airport (Jammu)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VOBM',
-      airport_name: 'Belagavi Airport (Belagavi)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOBM",
+      airport_name: "Belagavi Airport (Belagavi)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VIKA',
-      airport_name: 'Kanpur Airport (Kanpur)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VIKA",
+      airport_name: "Kanpur Airport (Kanpur)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VOPB',
-      airport_name: 'Port Blair Airport (Port Blair)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VOPB",
+      airport_name: "Port Blair Airport (Port Blair)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VABJ',
-      airport_name: 'Bhuj Airport (Bhuj)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VABJ",
+      airport_name: "Bhuj Airport (Bhuj)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VEAG',
-      airport_name: 'Agartala Airport (Agartala)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VEAG",
+      airport_name: "Agartala Airport (Agartala)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VAAU',
-      airport_name: 'Aurangabad Airport (Aurangabad)',
-      available_classes: ['Economy', 'Business', 'First Class']
+      icao_code: "VAAU",
+      airport_name: "Aurangabad Airport (Aurangabad)",
+      available_classes: ["Economy", "Business", "First Class"],
     },
     {
-      icao_code: 'VIKP',
-      airport_name: 'Kolhapur Airport (Kolhapur)',
-      available_classes: ['Economy', 'Business', 'First Class']
-    }
-    
+      icao_code: "VIKP",
+      airport_name: "Kolhapur Airport (Kolhapur)",
+      available_classes: ["Economy", "Business", "First Class"],
+    },
   ];
-  
+
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [journeyPreferencesId, setJourneyPreferencesId] = useState(null);
@@ -197,7 +202,7 @@ const BalineseAdventureForm = () => {
   const navigate = useNavigate();
 
   // Get today's date in YYYY-MM-DD format
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
     const id = sessionStorage.getItem("journeyPreferencesId");
@@ -205,7 +210,9 @@ const BalineseAdventureForm = () => {
       setJourneyPreferencesId(id);
       fetchTravelDetails(id); // Fetch travel details if ID exists
     } else {
-      setError("You've reloaded the page or closed the tab. Please start filling preferences again.");
+      setError(
+        "You've reloaded the page or closed the tab. Please start filling preferences again."
+      );
       setShowErrorPopup(true);
     }
 
@@ -334,7 +341,7 @@ const BalineseAdventureForm = () => {
       setError(err.response?.data?.message || "An error occurred");
       setShowErrorPopup(true);
       if (window.confirm("Your session is expired. Please log in again")) {
-        navigate('/signin');
+        navigate("/signin");
       }
     } finally {
       setIsLoading(false);
@@ -363,12 +370,13 @@ const BalineseAdventureForm = () => {
 
   return (
     <div className="adventure-form">
-       <div className="loading-bar-container">
-       <div className="loading-bar" style={{ width: "25%" }}></div>
-       </div>
+      <div className="loading-bar-container">
+        <div className="loading-bar" style={{ width: "25%" }}></div>
+      </div>
       <h2>When Will This Balinese Adventure Begin?</h2>
       <p className="ba-p">
-        The more specific you are, the more we can ensure your experience on this paradise island.
+        The more specific you are, the more we can ensure your experience on
+        this paradise island.
       </p>
       <form onSubmit={handleSubmit}>
         <div className="row">
@@ -437,13 +445,27 @@ const BalineseAdventureForm = () => {
           </div>
         </div>
 
-        <div className="Bd-btn">
+        <br></br>
+
+        <div className="nxt-btn"  >
           <button
-            type="submit"
+            onClick={() => navigate(-1)}
             disabled={isLoading}
-            className="btn btn-success"
+            className="nxt-btns"
           >
-            {isLoading ? "Submitting..." : "Go-Next"}
+            <img
+              src={leftbtn}
+              alt="icon"
+              style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+            />
+          </button>
+          <button type="submit" disabled={isLoading} className="nxt-btns">
+            {isLoading ? "Submitting..." : ""}
+            <img
+              src={rightbtn}
+              alt="icon"
+              style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+            />
           </button>
         </div>
       </form>

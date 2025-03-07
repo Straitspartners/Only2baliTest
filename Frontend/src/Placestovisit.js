@@ -11,6 +11,8 @@ import adventure from "../src/Asset/adventure.png";
 import culinary from "../src/Asset/culinary.png";
 import shopping from "../src/Asset/shopping.png";
 import luxury from "../src/Asset/luxury.png";
+import leftbtn from "../src/Asset/Button 2.png";
+import rightbtn from "../src/Asset/Button 3.png";
 
 const categories = [
   { id: 1, name: "Natural Beauty And Beaches", img: beaches },
@@ -232,15 +234,37 @@ const Placestovisit = () => {
           </div>
         ))}
       </div>
+      
+      <br></br>
+
+<div className="nxt-btn">
+<button
+              onClick={() => navigate(-1)}
+              disabled={isLoading}
+              className="nxt-btns"
+            >
+              <img
+                src={leftbtn}
+                alt="icon"
+                style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+              />
+            </button>
       <button
         type="button"
         onClick={isUpdate ? handleUpdate : handleSubmit}
-        className="Go-next"
+         className="nxt-btns"
         disabled={isLoading}
       >
-        {isLoading ? "Submitting..." : "Go Next"}
+        {isLoading ? "Submitting..." : ""}
+    
+            
+              <img
+                src={rightbtn}
+                alt="icon"
+                style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+              />
       </button>
-
+</div>
       {error && (
         <div className="popup-overlay">
           <div className="popup">

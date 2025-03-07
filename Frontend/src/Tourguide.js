@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import "./Tourguide.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import leftbtn from "../src/Asset/Button 2.png";
+import rightbtn from "../src/Asset/Button 3.png";
 const categories = [
   { id: 1, name: "Tamil" },
   { id: 2, name: "English" },
@@ -221,13 +222,30 @@ const Tourguide = () => {
           </div>
         </form>
       </div>
-      <div style={{ justifyItems: "center" }}>
+   
+      <div className="nxt-btn">
+  <button
+    onClick={() => navigate(-1)}
+    disabled={isLoading}
+    className="nxt-btns"
+  >
+    <img
+      src={leftbtn}
+      alt="icon"
+      style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+    />
+  </button>
         <button
           onClick={handleSubmit}
-          className="Go-next"
+        className="nxt-btns"
           disabled={isLoading} // Removed check for no selections to allow error popup
         >
-          {isLoading ? "Submitting..." : "Go Next"}
+          {isLoading ? "..." : ""}
+          <img
+              src={rightbtn}
+              alt="icon"
+              style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+            />
         </button>
       </div>
       {error && (

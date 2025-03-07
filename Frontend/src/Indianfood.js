@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./Indianfood.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import leftbtn from "../src/Asset/Button 2.png";
+import rightbtn from "../src/Asset/Button 3.png";
 const serviceTypes = [
   { value: "Personal Chef", name: "Personal Chef" },
   { value: "Catering", name: "Catering" },
@@ -206,13 +207,29 @@ const IndianFood = () => {
           />
         </div> */}
 
-        <div style={{ justifyItems: "center", marginTop: "10px" }}>
+<div className="nxt-btn">
+  <button
+    onClick={() => navigate(-1)}
+    disabled={isLoading}
+    className="nxt-btns"
+  >
+    <img
+      src={leftbtn}
+      alt="icon"
+      style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+    />
+  </button>
           <button
             onClick={handleSubmit}
-            className="Go-next"
+            className="nxt-btns"
             disabled={isLoading} // Only disable during loading
           >
-            {isLoading ? "Submitting..." : "Go Next"}
+            {isLoading ? "..." : ""}
+            <img
+              src={rightbtn}
+              alt="icon"
+              style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+            />
           </button>
         </div>
       </div>

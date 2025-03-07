@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./paperwork.css";
-
+import leftbtn from "../src/Asset/Button 2.png";
+import rightbtn from "../src/Asset/Button 3.png";
 const assistanceTypes = [
   { id: 1, name: "KYC Integration" },
   { id: 2, name: "Visa Processing Assistance" },
@@ -221,13 +222,29 @@ const Paperwork = () => {
           </div>
         </form>
 
-        <div style={{ justifyItems: "center" }}>
+        <div className="nxt-btn">
+  <button
+    onClick={() => navigate(-1)}
+    disabled={isLoading}
+    className="nxt-btns"
+  >
+    <img
+      src={leftbtn}
+      alt="icon"
+      style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+    />
+  </button>
           <button
             onClick={handleSubmit}
-            className="Go-next"
+           className="nxt-btns"
             disabled={isLoading} // Only disable during loading
           >
-            {isLoading ? "Submitting..." : "Go Next"}
+            {isLoading ? "..." : ""}
+            <img
+              src={rightbtn}
+              alt="icon"
+              style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+            />
           </button>
         </div>
       </div>

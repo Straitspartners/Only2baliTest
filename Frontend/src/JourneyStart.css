@@ -162,13 +162,27 @@
   align-items: center;
   padding: 10px;
 }
-
-.nxt-btn {
+.nxt-btnn {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color:transparent;
+
+
+  margin: 0 auto; /* Centers the div itself */
+  background: rgba(255, 255, 255, 0.61);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(16.6px);
+  -webkit-backdrop-filter: blur(16.6px);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+}
+
+.nxt-btns {
+  display: block;
+  text-align: center;
+  padding: 5px;
+  background-color: transparent;
+
 }
 
 .form-section {

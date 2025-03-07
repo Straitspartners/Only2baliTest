@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './Pages/Home';
+import "./App.css";
 import OtpContainer from './Otpverfication';  // Ensure this is Otpverfication.js, not Otpverfication.js
 import SignUp from './SignUp';  // Ensure this is SignUp.js, not Signup.js
 import Signin from './Signin';  // Ensure this is Signin.js, not Signup.js
@@ -25,14 +26,17 @@ import FaqPage from './FaqPage';
 import { useEffect } from "react";
 import ItineraryDate from './Itinerarydate';
 import AllItineraryPages from './AllItineraryPages';
+import FunkyCursor from "./StopMotionCursor";
+
 
 function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   return (
-
+<>  <FunkyCursor />
       <Routes >
+         
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/otpverfication" element={<OtpContainer />} />
@@ -58,9 +62,9 @@ function App() {
         <Route path='/FaqPage' element={<FaqPage/>} />
         <Route path='/ItineraryDate' element={<ItineraryDate/>} />
         <Route path='/AllItineraryPages' element={<AllItineraryPages/>} />
-       
+      
       </Routes>
-    
+    </>
   );
 }
 

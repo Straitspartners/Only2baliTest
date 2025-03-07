@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,6 +12,8 @@ import familygettogether from "./Asset/familygettogether.png";
 import friendsgettogether from "./Asset/friends-get-together.png";
 import newcouple from "./Asset/new-couple.png";
 import teambonding from "./Asset/team-bonding.png";
+import leftbtn from "../src/Asset/Button 2.png";
+import rightbtn from "../src/Asset/Button 3.png";
 
 const JourneyStart = () => {
   const [formData, setFormData] = useState({
@@ -155,7 +156,7 @@ const JourneyStart = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     // For age input, ensure it is within the specified range (1-99)
     if (name === "age") {
       if (value >= 1 && value <= 99) {
@@ -168,7 +169,7 @@ const JourneyStart = () => {
         return;
       }
     }
-  
+
     // For number_of_people input, ensure it is within the specified range (1-100)
     if (name === "number_of_people") {
       if (value >= 1 && value <= 100) {
@@ -181,14 +182,13 @@ const JourneyStart = () => {
         return;
       }
     }
-  
+
     // Update for other form fields
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-  
 
   const validateForm = () => {
     const requiredFields = {
@@ -256,7 +256,7 @@ const JourneyStart = () => {
         setError("Session expired. Please login again");
         localStorage.removeItem("access_token");
         window.confirm("Your session is expired. Please log in again");
-        navigate('/signin');
+        navigate("/signin");
       } else {
         setError(err.response?.data?.message || "An error occurred");
       }
@@ -275,10 +275,16 @@ const JourneyStart = () => {
               <h2 className="text-center mb-4" style={{ color: "#fff" }}>
                 Your Journey Begins Here
               </h2>
-              <img className="Start-journey-img" src={vector} alt="Journey Start" />
+              <img
+                className="Start-journey-img"
+                src={vector}
+                alt="Journey Start"
+              />
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label htmlFor="name" className="form-label">What's Your Name?</label>
+                  <label htmlFor="name" className="form-label">
+                    What's Your Name?
+                  </label>
                   <input
                     type="text"
                     className="form-control"
@@ -291,7 +297,9 @@ const JourneyStart = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="age" className="form-label">How Old Are You?</label>
+                  <label htmlFor="age" className="form-label">
+                    How Old Are You?
+                  </label>
                   <input
                     type="number"
                     className="form-control"
@@ -306,7 +314,9 @@ const JourneyStart = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="occupation" className="form-label">What is your profession?</label>
+                  <label htmlFor="occupation" className="form-label">
+                    What is your profession?
+                  </label>
                   <input
                     type="text"
                     className="form-control"
@@ -319,7 +329,9 @@ const JourneyStart = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="number_of_people" className="form-label">No of people traveling with you?</label>
+                  <label htmlFor="number_of_people" className="form-label">
+                    No of people traveling with you?
+                  </label>
                   <input
                     type="number"
                     className="form-control"
@@ -334,7 +346,9 @@ const JourneyStart = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="times_visited_bali" className="form-label">How Many Times Have You Been to Bali?</label>
+                  <label htmlFor="times_visited_bali" className="form-label">
+                    How Many Times Have You Been to Bali?
+                  </label>
                   <select
                     className="form-control"
                     id="times_visited_bali"
@@ -384,9 +398,32 @@ const JourneyStart = () => {
             ))}
           </div>
 
-          <div className="nxt-btn">
-            <button onClick={handleSubmit} disabled={isLoading} className="nxt-btn">
-              {isLoading ? "Submitting..." : "Next"}
+          <br></br>
+
+          <div className="nxt-btnn"   style={{ width: "20%", maxWidth: "100%" }}>
+            <button
+              onClick={() => navigate(-1)}
+              disabled={isLoading}
+              className="nxt-btns"
+            >
+              <img
+                src={leftbtn}
+                alt="icon"
+                style={{ width: "40px", height: "auto", maxWidth: "100%" }}
+              />
+            </button>
+            <button
+              onClick={handleSubmit}
+              disabled={isLoading}
+              className="nxt-btns"
+            >
+              <img
+                src={rightbtn}
+                alt="icon"
+                style={{ width: "40px", height: "auto", maxWidth: "100%" }}
+              />
+
+              {isLoading ? "..." : ""}
             </button>
           </div>
         </div>

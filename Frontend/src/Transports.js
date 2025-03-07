@@ -7,6 +7,8 @@ import vehicle4 from "../src/Asset/van.png";
 import vehicle5 from "../src/Asset/car.png";
 import vehicle6 from "../src/Asset/luxury car.png";
 import { useNavigate } from "react-router-dom";
+import leftbtn from "../src/Asset/Button 2.png";
+import rightbtn from "../src/Asset/Button 3.png";
 import axios from "axios";
 
 const categories = [
@@ -271,14 +273,30 @@ const Transports = () => {
           </div>
         </div>
       </div>
-      <div className="ts-btn">
+
+      <div className="nxt-btn">
+  <button
+    onClick={() => navigate(-1)}
+    disabled={isLoading}
+    className="nxt-btns"
+  >
+    <img
+      src={leftbtn}
+      alt="icon"
+      style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+    />
+  </button>
         <button
           onClick={handleSubmit}
-          className="Go-next"
+         className="nxt-btns"
           style={{ color: "white" }}
           disabled={isLoading} // Removed selection-based disabling
         >
-          {isLoading ? "Submitting..." : "Go Next"}
+          {isLoading ? "..." : ""} <img
+              src={rightbtn}
+              alt="icon"
+              style={{ width: "50px", height: "auto", maxWidth: "100%" }}
+            />
         </button>
       </div>
 
