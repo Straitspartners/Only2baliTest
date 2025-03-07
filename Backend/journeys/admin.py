@@ -69,7 +69,7 @@ class JourneyPreferencesAdmin(admin.ModelAdmin):
     ]
 
     # Optionally, you can customize list display, filters, etc.
-    list_display = ('user', 'name', 'age', 'occupation', 'crew_type','confirmed')
+    list_display = ('user', 'name', 'age','crew_type','confirmed')
     search_fields = ('name', 'occupation', 'user__username')  # Search by user (CustomUser's username)
 
 # Register the JourneyPreferences model with the admin panel
