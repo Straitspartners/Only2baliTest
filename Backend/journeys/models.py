@@ -18,7 +18,7 @@ class JourneyPreferences(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     age = models.IntegerField()
-   
+    occupation = models.CharField(max_length=150)
     number_of_people = models.IntegerField(default=1)
     times_visited_bali = models.CharField(max_length=150)
     crew_type = models.CharField(max_length=50, choices=CREW_TYPE_CHOICES)
