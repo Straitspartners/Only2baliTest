@@ -147,9 +147,9 @@ const home=()=>{
           </Col>
         </Row>
       </Container>
-      <div className="Journey-C" id="Journey-C">
+      <div className="Journey-C"   >
         <h1 className="Journey-h1">Unforgettable Experience Start From a Great Plan</h1>
-        <p className="Journey-p">Planning your dream holiday shouldn't be stressful, that’s why we are here. So these are our plans</p>
+        <p className="Journey-p" id="#Journey">Planning your dream holiday shouldn't be stressful, that’s why we are here. So these are our plans</p>
         <div className="carousel-div1">
           <div style={{ display: "block", width: 900, padding: 20 }}>
             <Carousel id="carouselExample" interval={2000} indicators={false}>
@@ -177,7 +177,7 @@ const home=()=>{
             </Carousel>
           </div>
          
-        </div> <div className="btn-div"> <button onClick={HandleStartjourney}>View All Plans</button> </div>
+        </div> <div id="#Journey" className="btn-div"> <button onClick={HandleStartjourney}>View All Plans</button> </div>
       </div>
      
     </>

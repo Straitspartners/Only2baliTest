@@ -3,6 +3,9 @@ body {
   size: 0cap;
 
 }
+h1{
+  font-weight: bold;
+}
 .custom-cursor {
   position: fixed;
   top: 0;
@@ -77,9 +80,23 @@ body {
   margin: 0%;
 }
 
-.Home {
-  padding-right: 40%;
+.Home-hero-h1,.P-span,.Home-hero-p1,.Home-hero-button,.Home-hero-p2{
+  opacity: 0;
+  transform: translateY(50px);
+  animation: slideUp 0.8s ease-out forwards;
 }
+
+@keyframes slideUp {
+  from {
+      opacity: 0;
+      transform: translateY(100px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
 .P-span{
   color: #4b352d;
   font-weight: bold;
