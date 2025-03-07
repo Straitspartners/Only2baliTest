@@ -479,87 +479,87 @@ class DeleteJourneyPreferences(APIView):
 
 
 
-# @api_view(["PATCH"])
-# @permission_classes([IsAuthenticated])
-# def confirm_journey(request, journey_id):
-#     try:
-#         journey = JourneyPreferences.objects.get(id=journey_id, user=request.user)
-#         journey.confirmed = True
-#         journey.save()
-#         return Response({"message": "Journey confirmed successfully!"}, status=status.HTTP_200_OK)
-#     except JourneyPreferences.DoesNotExist:
-#         return Response({"error": "Journey not found"}, status=status.HTTP_404_NOT_FOUND)
-    
-
-from .models import JourneyPreferences  # Import the model where JourneyPreferences is defined
-from django.core.mail import send_mail, EmailMessage  # Import send_mail and EmailMessage
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from io import BytesIO
-
-
-# Function to generate PDF
-def generate_pdf(journey):
-    # Create a BytesIO buffer to store the PDF data
-    buffer = BytesIO()
-
-    # Create a canvas to draw on the PDF
-    c = canvas.Canvas(buffer, pagesize=letter)
-    
-    # Define some initial content for the PDF
-    # c.drawString(100, 750, f"Journey Confirmation - {journey.id}")
-    c.drawString(100, 730, f"User: {journey.user.name}")
-    c.drawString(100, 710, f"Departure: {journey.age}")
-    c.drawString(100, 690, f"Arrival: {journey.place}")
-    c.drawString(100, 670, f"Departure Date: {journey.stay_type}")
-    c.drawString(100, 650, f"Arrival Date: {journey.arrival_date}")
-    # c.drawString(100, 630, f"Mode of Transport: {journey.mode_of_transport}")
-    # c.drawString(100, 610, f"Notes: {journey.notes if journey.notes else 'No additional notes'}")
-
-    # Finalize the PDF document
-    c.showPage()
-    c.save()
-
-    # Move buffer to the beginning so it can be used by email
-    buffer.seek(0)
-    return buffer
-
-from django.conf import settings
-
 @api_view(["PATCH"])
 @permission_classes([IsAuthenticated])
 def confirm_journey(request, journey_id):
     try:
-        # Retrieve the journey preference for the user
         journey = JourneyPreferences.objects.get(id=journey_id, user=request.user)
-        
-        # Set the journey as confirmed
         journey.confirmed = True
         journey.save()
-
-        # Generate the PDF for the journey details
-        pdf_buffer = generate_pdf(journey)
-
-        # Prepare the email subject and body
-        subject = "Journey Confirmation"
-        body = f"Hello ,\n\nYour journey has been successfully confirmed. Please find the journey details attached."
-
-        # Create the email message
-        email = EmailMessage(
-            subject=subject,
-            body=body,
-            from_email=settings.EMAIL_HOST_USER,  # Replace with your email
-            to=[settings.EMAIL_HOST_USER],
-        )
-
-        # Attach the PDF file
-        email.attach(f"journey_{journey.id}_confirmation.pdf", pdf_buffer.read(), 'application/pdf')
-
-        # Send the email using send_mail (via EmailMessage)
-        email.send()
-
-        # Return success response
-        return Response({"message": "Journey confirmed successfully and confirmation PDF sent!"}, status=status.HTTP_200_OK)
-
+        return Response({"message": "Journey confirmed successfully!"}, status=status.HTTP_200_OK)
     except JourneyPreferences.DoesNotExist:
         return Response({"error": "Journey not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+
+# from .models import JourneyPreferences  # Import the model where JourneyPreferences is defined
+# from django.core.mail import send_mail, EmailMessage  # Import send_mail and EmailMessage
+# from reportlab.lib.pagesizes import letter
+# from reportlab.pdfgen import canvas
+# from io import BytesIO
+
+
+# # Function to generate PDF
+# def generate_pdf(journey):
+#     # Create a BytesIO buffer to store the PDF data
+#     buffer = BytesIO()
+
+#     # Create a canvas to draw on the PDF
+#     c = canvas.Canvas(buffer, pagesize=letter)
+    
+#     # Define some initial content for the PDF
+#     # c.drawString(100, 750, f"Journey Confirmation - {journey.id}")
+#     c.drawString(100, 730, f"User: {journey.user.name}")
+#     c.drawString(100, 710, f"Departure: {journey.age}")
+#     c.drawString(100, 690, f"Arrival: {journey.place}")
+#     c.drawString(100, 670, f"Departure Date: {journey.stay_type}")
+#     c.drawString(100, 650, f"Arrival Date: {journey.arrival_date}")
+#     # c.drawString(100, 630, f"Mode of Transport: {journey.mode_of_transport}")
+#     # c.drawString(100, 610, f"Notes: {journey.notes if journey.notes else 'No additional notes'}")
+
+#     # Finalize the PDF document
+#     c.showPage()
+#     c.save()
+
+#     # Move buffer to the beginning so it can be used by email
+#     buffer.seek(0)
+#     return buffer
+
+# from django.conf import settings
+
+# @api_view(["PATCH"])
+# @permission_classes([IsAuthenticated])
+# def confirm_journey(request, journey_id):
+#     try:
+#         # Retrieve the journey preference for the user
+#         journey = JourneyPreferences.objects.get(id=journey_id, user=request.user)
+        
+#         # Set the journey as confirmed
+#         journey.confirmed = True
+#         journey.save()
+
+#         # Generate the PDF for the journey details
+#         pdf_buffer = generate_pdf(journey)
+
+#         # Prepare the email subject and body
+#         subject = "Journey Confirmation"
+#         body = f"Hello ,\n\nYour journey has been successfully confirmed. Please find the journey details attached."
+
+#         # Create the email message
+#         email = EmailMessage(
+#             subject=subject,
+#             body=body,
+#             from_email=settings.EMAIL_HOST_USER,  # Replace with your email
+#             to=[settings.EMAIL_HOST_USER],
+#         )
+
+#         # Attach the PDF file
+#         email.attach(f"journey_{journey.id}_confirmation.pdf", pdf_buffer.read(), 'application/pdf')
+
+#         # Send the email using send_mail (via EmailMessage)
+#         email.send()
+
+#         # Return success response
+#         return Response({"message": "Journey confirmed successfully and confirmation PDF sent!"}, status=status.HTTP_200_OK)
+
+#     except JourneyPreferences.DoesNotExist:
+#         return Response({"error": "Journey not found"}, status=status.HTTP_404_NOT_FOUND)

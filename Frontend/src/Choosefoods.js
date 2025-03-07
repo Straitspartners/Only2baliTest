@@ -145,8 +145,7 @@ const Choosefoods = () => {
       );
       if (response.status === 200) {
         console.log("Food preferences updated successfully");
-        navigate("/Transports");
-      }
+        navigate("/ExtraRequest")     }
     } catch (err) {
       console.error("Error updating food preferences:", err);
       setError("Failed to update food preferences");
@@ -224,7 +223,7 @@ const Choosefoods = () => {
           }
         );
         if (response.status === 201) {
-          navigate("/Transports");
+          navigate("/ExtraRequest");
         }
       }
     } catch (err) {
