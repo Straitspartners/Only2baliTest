@@ -125,7 +125,7 @@ const Vendor = () => {
           }
         );
         if (response.status === 200) {
-          navigate("/extrarequest");
+          navigate("/paperwork");
         }
       } else {
         const response = await axios.post(
@@ -139,7 +139,7 @@ const Vendor = () => {
           }
         );
         if (response.status === 201) {
-          navigate("/extrarequest");
+          navigate("/paperwork");
         }
       }
     } catch (err) {

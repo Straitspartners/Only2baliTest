@@ -136,7 +136,7 @@ const IndianFood = () => {
           }
         );
         if (response.status === 200) {
-          navigate("/paperwork");
+          navigate("/vendor");
         }
       } else {
         const response = await axios.post(
@@ -150,7 +150,7 @@ const IndianFood = () => {
           }
         );
         if (response.status === 201) {
-          navigate("/paperwork");
+          navigate("/vendor");
         }
       }
     } catch (err) {
