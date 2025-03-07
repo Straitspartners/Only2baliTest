@@ -30,16 +30,22 @@ const Paperwork = () => {
       <br></br>
       <div className="div-paperwork text-center w-40">
         <p className="p-p">
-          <img alt="date" className="it-icon" src={icon1}></img> KYC Documents
+          <img alt="date" className="it-icon" src={icon1}></img> ✅ KYC Documents
         </p>
         <p className="p-p">
-          <img alt="to_date" className="it-icon" src={icon2}></img> Visa
-          Processing Assistance
+          <img alt="to_date" className="it-icon" src={icon2}></img> ✅ Passport – Valid for at least six months from your travel date.
         </p>
         <p className="p-p">
           {" "}
-          <img alt="type" className="it-icon1" src={icon3}></img> Travel
-          Requirement Guidance
+          <img alt="type" className="it-icon1" src={icon3}></img> ✅ Visa – Required for entry; check country-specific rules.
+        </p>
+        <p className="p-p">
+          {" "}
+          <img alt="type" className="it-icon1" src={icon3}></img> ✅ Travel Insurance – Covers medical emergencies and trip disruptions.
+        </p>
+        <p className="p-p">
+          {" "}
+          <img alt="type" className="it-icon1" src={icon3}></img> ✅ Currency Exchange – Ensure your International payment method before travel.
         </p>
       </div>
       <br></br>

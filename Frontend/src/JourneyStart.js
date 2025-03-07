@@ -19,7 +19,6 @@ const JourneyStart = () => {
   const [formData, setFormData] = useState({
     name: "",
     age: "",
-    occupation: "",
     times_visited_bali: "",
     number_of_people: "",
     crew_type: "",
@@ -194,7 +193,6 @@ const JourneyStart = () => {
     const requiredFields = {
       name: formData.name,
       age: formData.age,
-      occupation: formData.occupation,
       times_visited_bali: formData.times_visited_bali,
       crew_type: formData.crew_type,
       number_of_people: formData.number_of_people,
@@ -313,21 +311,7 @@ const JourneyStart = () => {
                     max="99"
                   />
                 </div>
-                <div className="mb-3">
-                  <label htmlFor="occupation" className="form-label">
-                    What is your profession?
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="occupation"
-                    name="occupation"
-                    value={formData.occupation || ""}
-                    onChange={handleChange}
-                    placeholder="Type Something..."
-                    required
-                  />
-                </div>
+          
                 <div className="mb-3">
                   <label htmlFor="number_of_people" className="form-label">
                     No of people traveling with you?
