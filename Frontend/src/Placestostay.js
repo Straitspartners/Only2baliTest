@@ -402,7 +402,7 @@ const Placestostay = () => {
           );
 
       if (response.status === 201 || response.status === 200) {
-        navigate("/choosefoods");
+        navigate("/Transports");
       }
     } catch (err) {
       console.error("API Error:", err.response?.data);
