@@ -117,7 +117,6 @@ const home=()=>{
   onClick={HandleFeedback} 
   className="d-flex align-items-center"
 >
-  <img src={Route} alt="Itinerary" width="25" height="25" className="me-4" />
   Feedback
 </NavDropdown.Item>
 
