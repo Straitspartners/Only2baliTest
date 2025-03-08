@@ -284,7 +284,7 @@ const App = () => {
         <br></br>
         <div className="Get-Started-button-div">
           <button className="Get-Started-button" onClick={handleClick}>
-            Start Here{" "}
+            SIGN UP{" "}
           </button>
           
         </div>
