@@ -83,6 +83,10 @@ const home=()=>{
       setLoading(false); // Set loading to false once the process is done
     }
   };
+  const HandleFeedback = () => {
+    // Open the link in the same window
+    window.location.href = 'https://zfrmz.com/wpXaXnNDFORDeHDzmeWl';
+  };
   
   return (
     <>
@@ -109,6 +113,15 @@ const home=()=>{
               align="end"
               drop="down" // Ensure dropdown shows below the profile button
             >
+              <NavDropdown.Item 
+  onClick={HandleFeedback} 
+  className="d-flex align-items-center"
+>
+  <img src={Route} alt="Itinerary" width="25" height="25" className="me-4" />
+  Feedback
+</NavDropdown.Item>
+
+
               <NavDropdown.Item onClick={HandleItineraryDate} className="d-flex align-items-center">
                 <img src={Route}   alt="Itinerary" width="25" height="25" className="me-4" />
                 Your Itinerary
