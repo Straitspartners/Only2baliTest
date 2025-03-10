@@ -31,4 +31,3 @@ yarl==1.18.3
 gunicorn==20.1.0  
 whitenoise
 reportlab
-weasyprint
