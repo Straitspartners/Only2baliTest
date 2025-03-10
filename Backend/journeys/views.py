@@ -479,98 +479,17 @@ class DeleteJourneyPreferences(APIView):
 
 
 
-# @api_view(["PATCH"])
-# @permission_classes([IsAuthenticated])
-# def confirm_journey(request, journey_id):
-#     try:
-#         journey = JourneyPreferences.objects.get(id=journey_id, user=request.user)
-#         journey.confirmed = True
-#         journey.save()
-#         return Response({"message": "Journey confirmed successfully!"}, status=status.HTTP_200_OK)
-#     except JourneyPreferences.DoesNotExist:
-#         return Response({"error": "Journey not found"}, status=status.HTTP_404_NOT_FOUND)
-    
-
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework import status
-from io import BytesIO
-from django.http import HttpResponse
-from weasyprint import HTML
-from .models import JourneyPreferences  # Make sure you import your model
-
 @api_view(["PATCH"])
 @permission_classes([IsAuthenticated])
 def confirm_journey(request, journey_id):
     try:
-        # Get the journey
         journey = JourneyPreferences.objects.get(id=journey_id, user=request.user)
-        
-        # Mark the journey as confirmed
         journey.confirmed = True
         journey.save()
-
-        # Generate PDF after confirming the journey
-        pdf_content = generate_journey_pdf(journey)
-
-        # Create a response for PDF download
-        response = HttpResponse(pdf_content, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="journey_{journey_id}_confirmation.pdf"'
-        
-        # Return the response to trigger the download
-        return response
-
+        return Response({"message": "Journey confirmed successfully!"}, status=status.HTTP_200_OK)
     except JourneyPreferences.DoesNotExist:
         return Response({"error": "Journey not found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-def generate_journey_pdf(journey):
-    """
-    This function generates a PDF document with journey details.
-    """
-    # Create the HTML content for the PDF
-    html_content = f"""
-    <html>
-    <head>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-                margin: 20px;
-                color: #333;
-            }}
-            h2 {{
-                color: #174A80;
-                text-align: center;
-            }}
-            p {{
-                font-size: 14px;
-            }}
-            .journey-details {{
-                margin-top: 20px;
-                padding: 10px;
-                border: 1px solid #ddd;
-            }}
-        </style>
-    </head>
-    <body>
-        <h2>Journey Confirmation</h2>
-        <div class="journey-details">
-            <p><strong>Journey ID:</strong> {journey.id}</p>
-            <p><strong>Location:</strong> {journey.user.name}</p>
-            <p><strong>Start Date:</strong> {journey.age}</p>
-            <p><strong>End Date:</strong> {journey.place}</p>
-            <p><strong>Status:</strong> Confirmed</p>
-        </div>
-    </body>
-    </html>
-    """
-
-    # Generate the PDF using WeasyPrint
-    pdf = HTML(string=html_content).write_pdf()
-
-    return pdf
-
+    
 
 # from .models import JourneyPreferences  # Import the model where JourneyPreferences is defined
 # from django.core.mail import send_mail, EmailMessage  # Import send_mail and EmailMessage
