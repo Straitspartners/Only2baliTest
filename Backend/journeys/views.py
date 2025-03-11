@@ -479,87 +479,215 @@ class DeleteJourneyPreferences(APIView):
 
 
 
-@api_view(["PATCH"])
-@permission_classes([IsAuthenticated])
-def confirm_journey(request, journey_id):
-    try:
-        journey = JourneyPreferences.objects.get(id=journey_id, user=request.user)
-        journey.confirmed = True
-        journey.save()
-        return Response({"message": "Journey confirmed successfully!"}, status=status.HTTP_200_OK)
-    except JourneyPreferences.DoesNotExist:
-        return Response({"error": "Journey not found"}, status=status.HTTP_404_NOT_FOUND)
-    
-
-# from .models import JourneyPreferences  # Import the model where JourneyPreferences is defined
-# from django.core.mail import send_mail, EmailMessage  # Import send_mail and EmailMessage
-# from reportlab.lib.pagesizes import letter
-# from reportlab.pdfgen import canvas
-# from io import BytesIO
-
-
-# # Function to generate PDF
-# def generate_pdf(journey):
-#     # Create a BytesIO buffer to store the PDF data
-#     buffer = BytesIO()
-
-#     # Create a canvas to draw on the PDF
-#     c = canvas.Canvas(buffer, pagesize=letter)
-    
-#     # Define some initial content for the PDF
-#     # c.drawString(100, 750, f"Journey Confirmation - {journey.id}")
-#     c.drawString(100, 730, f"User: {journey.user.name}")
-#     c.drawString(100, 710, f"Departure: {journey.age}")
-#     c.drawString(100, 690, f"Arrival: {journey.place}")
-#     c.drawString(100, 670, f"Departure Date: {journey.stay_type}")
-#     c.drawString(100, 650, f"Arrival Date: {journey.arrival_date}")
-#     # c.drawString(100, 630, f"Mode of Transport: {journey.mode_of_transport}")
-#     # c.drawString(100, 610, f"Notes: {journey.notes if journey.notes else 'No additional notes'}")
-
-#     # Finalize the PDF document
-#     c.showPage()
-#     c.save()
-
-#     # Move buffer to the beginning so it can be used by email
-#     buffer.seek(0)
-#     return buffer
-
-# from django.conf import settings
-
 # @api_view(["PATCH"])
 # @permission_classes([IsAuthenticated])
 # def confirm_journey(request, journey_id):
 #     try:
-#         # Retrieve the journey preference for the user
 #         journey = JourneyPreferences.objects.get(id=journey_id, user=request.user)
-        
-#         # Set the journey as confirmed
 #         journey.confirmed = True
 #         journey.save()
-
-#         # Generate the PDF for the journey details
-#         pdf_buffer = generate_pdf(journey)
-
-#         # Prepare the email subject and body
-#         subject = "Journey Confirmation"
-#         body = f"Hello ,\n\nYour journey has been successfully confirmed. Please find the journey details attached."
-
-#         # Create the email message
-#         email = EmailMessage(
-#             subject=subject,
-#             body=body,
-#             from_email=settings.EMAIL_HOST_USER,  # Replace with your email
-#             to=[settings.EMAIL_HOST_USER],
-#         )
-
-#         # Attach the PDF file
-#         email.attach(f"journey_{journey.id}_confirmation.pdf", pdf_buffer.read(), 'application/pdf')
-
-#         # Send the email using send_mail (via EmailMessage)
-#         email.send()
-
-#         # Return success response
-#         return Response({"message": "Journey confirmed successfully and confirmation PDF sent!"}, status=status.HTTP_200_OK)
-
+#         return Response({"message": "Journey confirmed successfully!"}, status=status.HTTP_200_OK)
 #     except JourneyPreferences.DoesNotExist:
 #         return Response({"error": "Journey not found"}, status=status.HTTP_404_NOT_FOUND)
+
+from io import BytesIO
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.platypus import Image
+from reportlab.lib.utils import ImageReader
+import os
+from django.conf import settings
+from django.core.mail import EmailMessage
+
+def generate_pdf(journey):
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=letter)
+    width, height = letter
+
+    # Set website theme color as primary color (#4B352D)
+    theme_color = colors.HexColor("#4B352D")
+    
+    # Set the background color for the entire page to #F9F3EA
+    bg_color = colors.HexColor("#F9F3EA")
+    c.setFillColor(bg_color)
+    c.rect(0, 0, width, height, fill=1, stroke=0)
+
+    # ---- WATERMARK SECTION ----
+    watermark_logo_path = os.path.join("static", "logo.png")
+    if os.path.exists(watermark_logo_path):
+        watermark_logo = ImageReader(watermark_logo_path)
+        c.saveState()
+        try:
+            c.setFillAlpha(0.1)
+        except Exception:
+            pass
+        wm_width, wm_height = 300, 200
+        wm_x, wm_y = (width - wm_width) / 2, (height - wm_height) / 2
+        c.drawImage(watermark_logo, wm_x, wm_y, width=wm_width, height=wm_height, mask='auto')
+        c.restoreState()
+
+    # ---- HEADER SECTION ----
+    c.setFillColor(theme_color)
+    c.rect(0, height - 50, width, 50, fill=1, stroke=0)
+
+    logo_path = os.path.join("static", "logo.png")
+    if os.path.exists(logo_path):
+        logo = ImageReader(logo_path)
+        c.drawImage(logo, 20, height - 45, width=40, height=30, mask='auto')
+
+    c.setFillColor(colors.white)
+    c.setFont("Helvetica-Bold", 16)
+    c.drawCentredString(width / 2, height - 35, "Journey Confirmation")
+
+    # ---- MAIN CONTENT SECTION ----
+    y = height - 70
+    c.setFillColor(colors.black)
+    c.setFont("Times-Roman", 12)
+
+    c.drawString(100, y, f"• User: {journey.name}")
+    y -= 20
+    c.drawString(100, y, f"• Age: {journey.age}")
+    y -= 20
+    c.drawString(100, y, f"• No. of People: {journey.number_of_people}")
+    y -= 20
+    c.drawString(100, y, f"• Times Visited Bali: {journey.times_visited_bali}")
+    y -= 20
+    c.drawString(100, y, f"• Crew Type: {journey.get_crew_type_display()}")
+
+    # Places to Visit
+    y -= 20
+    places_to_visit = journey.placestovisit_set.first()
+    if places_to_visit:
+        journey_places = ", ".join([place.get_place_name_display() for place in places_to_visit.place.all()])
+        c.drawString(100, y, f"• Places to Visit: {journey_places}")
+    else:
+        c.drawString(100, y, "• Places to Visit: Not specified")
+
+    # Travel Details
+    travel_details = getattr(journey, "traveldetails", None)
+    if travel_details:
+        y -= 20
+        c.drawString(100, y, f"• Travel Dates: {travel_details.from_date} to {travel_details.to_date}")
+        y -= 20
+        c.drawString(100, y, f"• Flight Class: {travel_details.flight_class}")
+        y -= 20
+        c.drawString(100, y, f"• Airport: {travel_details.international_airport}")
+
+    # Stay Preferences
+    stay_preferences = getattr(journey, "staypreferences", None)
+    if stay_preferences:
+        stay_types = ", ".join([stay.stay_type_name for stay in stay_preferences.stay_type.all()])
+        y -= 20
+        c.drawString(100, y, f"• Stay Type(s): {stay_types}")
+
+    # Transport Details
+    vehicle_type = getattr(journey, "transportpreferences", None)
+    if vehicle_type:
+        y -= 20
+        c.drawString(100, y, f"• Type of Vehicle: {vehicle_type.vehicle_type_name}")
+        y -= 20
+        c.drawString(100, y, f"• Rent Duration: {vehicle_type.rent_period}")
+        y -= 20
+        c.drawString(100, y, f"• Include Driver: {'Yes' if vehicle_type.include_driver else 'No'}")
+
+    # Tour Guide Preferences
+    tour_guide_preferences = getattr(journey, "tourguidepreferences", None)
+    if tour_guide_preferences:
+        tour_guide_languages = ", ".join([lang.language_name for lang in tour_guide_preferences.preferred_languages.all()])
+        y -= 20
+        c.drawString(100, y, f"• Tour Guide Language: {tour_guide_languages}")
+
+   # Catering or Chef Preferences
+    catering_service = getattr(journey, "cateringpreferences", None)
+    if catering_service:
+        y -= 20
+        c.drawString(100, y, f"• Food Preparation: {catering_service.service_type}")
+    # else:
+    #     y -= 20
+    #     c.drawString(100, y, "• Food Preparation: Not specified")
+
+    # Vendor Preferences
+    vendor_preferences = getattr(journey, "vendorpreferences", None)
+    if vendor_preferences:
+        vendors = ", ".join([vendor.name for vendor in vendor_preferences.vendor_type.all()])
+        y -= 20
+        c.drawString(100, y, f"• Vendors: {vendors}")
+    # else:
+    #     y -= 20
+    #     c.drawString(100, y, "• Vendors: Not specified")
+
+
+    # Food Preferences
+    food_preferences = getattr(journey, "foodpreferences", None)
+    food_types = []
+    if food_preferences:
+        if food_preferences.vegetarian_choice.exists():
+            food_types.append("Vegetarian: " + ", ".join([choice.choice_name for choice in food_preferences.vegetarian_choice.all()]))
+        if food_preferences.non_vegetarian_choice.exists():
+            food_types.append("Non-Vegetarian: " + ", ".join([choice.choice_name for choice in food_preferences.non_vegetarian_choice.all()]))
+        if food_preferences.dietary_choice.exists():
+            food_types.append("Dietary: " + ", ".join([choice.choice_name for choice in food_preferences.dietary_choice.all()]))
+        if food_preferences.balinese_choice.exists():
+            food_types.append("Balinese Dish: " + ", ".join([choice.choice_name for choice in food_preferences.balinese_choice.all()]))
+
+    y -= 20
+    c.drawString(100, y, f"• Food Preferences: {', '.join(food_types) if food_types else 'Not specified'}")
+
+    # Extra Requests
+    requests = getattr(journey, "extra_requests",None)
+    y -= 20
+    c.drawString(100, y, f"• Extra Requests: {requests}")
+
+    # ---- FOOTER SECTION ----
+    c.setFillColor(theme_color)
+    c.rect(0, 0, width, 40, fill=1, stroke=0)
+    c.setFillColor(colors.white)
+    c.setFont("Helvetica", 10)
+    c.drawCentredString(width / 2, 15, "Thank you for confirming your journey!")
+
+    # Finalize the PDF document
+    c.showPage()
+    c.save()
+
+    buffer.seek(0)
+    return buffer
+
+
+@api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
+def confirm_journey(request, journey_id):
+    try:
+        # Retrieve the journey preference for the user
+        journey = JourneyPreferences.objects.get(id=journey_id, user=request.user)
+        # Set the journey as confirmed
+        journey.confirmed = True
+        journey.save()
+
+        # Generate the PDF for the journey details
+        pdf_buffer = generate_pdf(journey)
+
+        # Prepare the email subject and body
+        subject = "Journey Confirmation"
+        body = "Hello,\n\nYour journey has been successfully confirmed. Please find the journey details attached."
+
+        # Create the email message
+        email = EmailMessage(
+            subject=subject,
+            body=body,
+            from_email=settings.EMAIL_HOST_USER,
+            to=[settings.EMAIL_HOST_USER],
+        )
+
+        # Attach the PDF file
+        email.attach(f"journey_{journey.id}_confirmation.pdf", pdf_buffer.read(), "application/pdf")
+
+        # Send the email
+        email.send()
+
+        return Response({"message": "Journey confirmed successfully and confirmation PDF sent!"}, status=status.HTTP_200_OK)
+
+    except JourneyPreferences.DoesNotExist:
+        return Response({"error": "Journey not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+
