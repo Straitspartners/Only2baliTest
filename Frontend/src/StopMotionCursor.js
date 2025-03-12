@@ -1,50 +1,66 @@
-// StopMotionCursor.jsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import p5 from 'p5';
 
 const StopMotionCursor = () => {
   const containerRef = useRef();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Detect if the device is mobile/tablet
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mediaQuery.matches);
+
+    // Update state if the window is resized
+    const handleResize = () => {
+      setIsMobile(mediaQuery.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleResize);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      return; // Skip setting up the custom cursor on mobile/tablet
+    }
+
     const sketch = (p) => {
       let history = [];
-      // Define a palette of colors – using your theme colors plus two extra for a multi-color effect
+      const circleColor = p.color('#1E9C5B'); // Cursor color
+
       const colorPalette = [
-        p.color('#1E9C5B'), // green (theme)
-        p.color('#F8F1E5'), // cream (theme)
-        p.color('#4B352D'), // brown (theme)
-        p.color('#FF6B6B'), // extra: vibrant red/pink
-        p.color('#FFD93D')  // extra: sunny yellow
+        p.color('#1E9C5B'), // Green (theme)
+        p.color('#FF6B6B'), // Red (theme)
+        p.color('#d7c4b7'), // Cream (theme)
+        p.color('#4B352D'), // Brown (theme)
+        p.color('#FF6B6B'), // Vibrant red/pink
+        p.color('#FFD93D')  // Yellow (theme)
       ];
 
       p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight).parent(containerRef.current);
-        // Clear background to allow transparency
         p.clear();
       };
 
       p.draw = () => {
-        // Clear the canvas to keep the cursor effect fresh
-        p.clear();
+        p.clear(); // Clear the canvas to keep the cursor effect fresh
 
-        // Get current mouse position
         const mx = p.mouseX;
         const my = p.mouseY;
 
-        // Add current position to the history
         history.push({ x: mx, y: my });
-        // Limit the history length for a shorter, dynamic trail
         if (history.length > 10) {
-          history.shift();
+          history.shift(); // Keep a history of the last 10 points for a smooth trail
         }
 
-        // Draw the trail: draw line segments between consecutive history points
         for (let i = 0; i < history.length - 1; i++) {
-          // Cycle through the color palette based on the index for multi-color effect
           const col = colorPalette[i % colorPalette.length];
           p.stroke(col);
           p.strokeWeight(8);
-          // Add a small random jitter to simulate a hand-drawn crayon stroke
+
           const jitterX = p.random(-2, 2);
           const jitterY = p.random(-2, 2);
           p.line(
@@ -53,15 +69,13 @@ const StopMotionCursor = () => {
           );
         }
 
-        // Draw the current cursor tip with a glowing effect
+        // Draw the inner circle for the cursor tip
         p.noStroke();
-        // Pick a random color from the palette for the tip for extra fun variation
-        const tipColor = colorPalette[p.floor(p.random(colorPalette.length))];
-        p.fill(tipColor);
+        p.fill(circleColor);
         p.ellipse(mx, my, 14, 14);
 
-        // Draw an outer glow for the tip
-        p.stroke(tipColor);
+        // Draw an outer glow for the tip with the fixed color
+        p.stroke(circleColor);
         p.strokeWeight(4);
         p.noFill();
         p.ellipse(mx, my, 22, 22);
@@ -72,14 +86,17 @@ const StopMotionCursor = () => {
       };
     };
 
-    // Create and mount the p5 instance
     const myP5 = new p5(sketch);
 
     // Cleanup on unmount
     return () => {
       myP5.remove();
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return null; // Don't render the cursor effect on mobile/tablet
+  }
 
   return (
     <div
