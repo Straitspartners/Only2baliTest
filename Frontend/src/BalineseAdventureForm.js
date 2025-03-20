@@ -2,7 +2,6 @@ import "./balineseAdventureForm.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import leftbtn from "../src/Asset/Button 2.png";
 import rightbtn from "../src/Asset/Button 3.png";
 
