@@ -271,10 +271,7 @@ const FAQContactPage = () => {
       } else {
         alert('Form submitted successfully');  // Here must be an error message but even though it is correctly adding in zoho desk
       }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('There was an issue submitting your form');
-    }
+    } 
     finally {
       // Regardless of success or error, navigate to the dashboard preferences page
       navigate("/dashboardPreferences");
