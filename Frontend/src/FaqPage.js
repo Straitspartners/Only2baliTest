@@ -275,10 +275,10 @@ const FAQContactPage = () => {
       console.error('Error:', error);
       alert('There was an issue submitting your form');
     }
-    finally {
-      // Regardless of success or error, navigate to the dashboard preferences page
-      navigate("/dashboardPreferences");
-    }
+    // finally {
+    //   // Regardless of success or error, navigate to the dashboard preferences page
+    //   navigate("/dashboardPreferences");
+    // }
   };
 
   const faqs = [
