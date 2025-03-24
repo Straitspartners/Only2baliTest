@@ -19,6 +19,7 @@ urlpatterns = [
     path('itinerarydate/', ItineraryDatesView.as_view(), name='itinerary-detail'),
     path('journey_preferences/delete/<str:journey_preferences_id>/', DeleteJourneyPreferences.as_view(), name='delete-journey-preferences'),
     path("confirm/<int:journey_id>/", confirm_journey, name="confirm_journey"),
+    path('faq/', SendToZohoAPIView.as_view(), name='send_to_zoho'),
     # path('airports/', AirportListView.as_view(), name='airport-list'),
     
 ]
