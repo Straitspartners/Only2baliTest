@@ -885,7 +885,7 @@ class SendToZohoAPIView(APIView):
                 # Retry the request after refreshing the token
                 response = requests.post(ZOHO_API_URL, json=zoho_data, headers=headers)
 
-            if response.status_code == 201:
+            if response.status_code in [200, 201]:
                 return Response({"success": True}, status=status.HTTP_201_CREATED)
             else:
                 return Response({"error": "Failed to create ticket in Zoho Desk", "details": response.json()}, status=status.HTTP_400_BAD_REQUEST)
