@@ -257,7 +257,7 @@ const FAQContactPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/journeys/faq/', { // Make sure this URL is correct
+      const response = await fetch('https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/api/users/faq/', { // Make sure this URL is correct
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

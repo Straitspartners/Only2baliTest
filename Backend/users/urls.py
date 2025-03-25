@@ -10,4 +10,5 @@ urlpatterns = [
     path('profile/update/', UserProfileUpdateView.as_view(), name='profile_update'),
     path('user-profile/', UserProfileView.as_view(), name='user-profile'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('faq/', SendToZohoAPIView.as_view(), name='send_to_zoho'),
 ]
