@@ -31,6 +31,34 @@ class RegistrationView(APIView):
     """Handles user registration and OTP generation and verification."""
     
     def post(self, request):
+
+        if 'mobile_number' in request.data:
+            mobile_number = request.data['mobile_number']
+            
+            # Check if the user exceeded OTP rate limits
+            rate_limit_key = f"otp_rate_limit_{mobile_number}"
+            requests_made = cache.get(rate_limit_key, 0)
+            if requests_made >= OTP_RATE_LIMIT['MAX_REQUESTS']:
+                reset_time = cache.get(f"otp_rate_limit_reset_time_{mobile_number}")
+                if reset_time:
+                    remaining_time = reset_time - timezone.now()
+                    return Response({"rate_limit": f"Too many OTP requests. Try again after {remaining_time}."}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Generate OTP and store it in cache
+            otp = get_random_string(length=4, allowed_chars='0123456789')
+            cache_key = f"otp_{mobile_number}"
+            cache.set(cache_key, {"otp": otp}, timeout=300)  # Store OTP for 5 minutes
+            
+            # Send OTP via SMS
+            if send_sms(mobile_number, otp, "signup"):
+                # Increment OTP request count and set reset time
+                cache.set(rate_limit_key, requests_made + 1, timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
+                cache.set(f"otp_rate_limit_reset_time_{mobile_number}", timezone.now() + OTP_RATE_LIMIT['TIME_WINDOW'], timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
+
+                return Response({"message": "OTP sent successfully to your mobile number."}, status=status.HTTP_200_OK)
+
+            return Response({"error": "Failed to send OTP. Please try again later."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         registration_serializer = RegistrationSerializer(data=request.data)
         
         if registration_serializer.is_valid():
