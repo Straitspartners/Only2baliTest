@@ -320,7 +320,7 @@ class LoginView(APIView):
                     cache_key = f"otp_{user.mobile_number}"
                     cache.set(cache_key, {"otp": generated_otp}, timeout=300)
 
-                    message = f"Your login OTP is: {generated_otp} from Only2Bali. Best regards, Straits Partners"
+                    message = f"{generated_otp}"
                     send_sms(user.mobile_number, message)
 
                     return Response({"message": "OTP sent successfully."}, status=status.HTTP_200_OK)
