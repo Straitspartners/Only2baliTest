@@ -27,44 +27,41 @@ OTP_RATE_LIMIT = {
     'TIME_WINDOW': timedelta(minutes=2)
 }
 
-# class RegistrationView(APIView):
-#     """Handles user registration and OTP generation and verification."""
+class RegistrationView(APIView):
+    """Handles user registration and OTP generation and verification."""
     
-#     def post(self, request):
-#         registration_serializer = RegistrationSerializer(data=request.data)
+    def post(self, request):
+        registration_serializer = RegistrationSerializer(data=request.data)
         
-#         if registration_serializer.is_valid():
-#             data = registration_serializer.validated_data
-#             mobile_number = data['mobile_number']
+        if registration_serializer.is_valid():
+            data = registration_serializer.validated_data
+            mobile_number = data['mobile_number']
             
-#             # Check if the user exceeded OTP rate limits
-#             rate_limit_key = f"otp_rate_limit_{mobile_number}"
-#             requests_made = cache.get(rate_limit_key, 0)
-#             if requests_made >= OTP_RATE_LIMIT['MAX_REQUESTS']:
-#                 reset_time = cache.get(f"otp_rate_limit_reset_time_{mobile_number}")
-#                 if reset_time:
-#                     remaining_time = reset_time - timezone.now()
-#                     return Response({"rate_limit": f"Too many OTP requests. Try again after {remaining_time}."}, status=status.HTTP_400_BAD_REQUEST)
+            # Check if the user exceeded OTP rate limits
+            rate_limit_key = f"otp_rate_limit_{mobile_number}"
+            requests_made = cache.get(rate_limit_key, 0)
+            if requests_made >= OTP_RATE_LIMIT['MAX_REQUESTS']:
+                reset_time = cache.get(f"otp_rate_limit_reset_time_{mobile_number}")
+                if reset_time:
+                    remaining_time = reset_time - timezone.now()
+                    return Response({"rate_limit": f"Too many OTP requests. Try again after {remaining_time}."}, status=status.HTTP_400_BAD_REQUEST)
 
-#             # Generate OTP and store it in cache
-#             otp = get_random_string(length=4, allowed_chars='0123456789')
-#             cache_key = f"otp_{mobile_number}"
-#             cache.set(cache_key, {"otp": otp, "user_data": data}, timeout=300)  # Store OTP for 5 minutes
+            # Generate OTP and store it in cache
+            otp = get_random_string(length=4, allowed_chars='0123456789')
+            cache_key = f"otp_{mobile_number}"
+            cache.set(cache_key, {"otp": otp, "user_data": data}, timeout=300)  # Store OTP for 5 minutes
             
-#             # Send OTP via SMS
-#             message = f"Your OTP for registration is: {otp}"
-#             send_sms(mobile_number, message)
+            # Send OTP via SMS
+            if send_sms(mobile_number, otp, "signup"):
+                # Increment OTP request count and set reset time
+                cache.set(rate_limit_key, requests_made + 1, timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
+                cache.set(f"otp_rate_limit_reset_time_{mobile_number}", timezone.now() + OTP_RATE_LIMIT['TIME_WINDOW'], timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
 
-#             # Increment OTP request count and set reset time
-#             cache.set(rate_limit_key, requests_made + 1, timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
-#             cache.set(f"otp_rate_limit_reset_time_{mobile_number}", timezone.now() + OTP_RATE_LIMIT['TIME_WINDOW'], timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
+                return Response({"message": "OTP sent successfully to your mobile number."}, status=status.HTTP_200_OK)
 
-#             return Response({"message": "OTP sent successfully to your mobile number."}, status=status.HTTP_200_OK)
+            return Response({"error": "Failed to send OTP. Please try again later."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-#         return Response(registration_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
+        return Response(registration_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OTPVerificationView(APIView):
     """Handles OTP verification and user creation."""
@@ -280,69 +277,73 @@ def get_tokens_for_user(user):
 #             return Response({"error": "Invalid OTP."}, status=status.HTTP_401_UNAUTHORIZED)
 
 #         return Response({"error": "Invalid login type."}, status=status.HTTP_400_BAD_REQUEST)
-from django.contrib.auth import authenticate
-from django.core.cache import cache
-from django.utils.crypto import get_random_string
-from django.utils import timezone
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework import status
-from .models import CustomUser  # Assuming you have a custom user model
-
-
-OTP_EXPIRY_TIME = 300  # 5 minutes
-OTP_RATE_LIMIT = {'MAX_REQUESTS': 5, 'TIME_WINDOW': timezone.timedelta(minutes=10)}
 
 class LoginView(APIView):
-    """Handles user login with password or OTP."""
-    
+    """Handles user login via password or OTP."""
+
     def post(self, request):
-        mobile_number = request.data.get('mobile_number')
-        password = request.data.get('password')
-        otp = request.data.get('otp')
+        serializer = LoginSerializer(data=request.data)
         
-        if not mobile_number:
-            return Response({"error": "Mobile number is required."}, status=status.HTTP_400_BAD_REQUEST)
-        
-        try:
-            user = CustomUser.objects.get(mobile_number=mobile_number)
-        except CustomUser.DoesNotExist:
-            return Response({"error": "User does not exist."}, status=status.HTTP_404_NOT_FOUND)
-        
-        if password:
-            user = authenticate(request, username=mobile_number, password=password)
-            if user:
-                return Response({"message": "Login successful.", "user_id": user.id}, status=status.HTTP_200_OK)
-            return Response({"error": "Invalid credentials."}, status=status.HTTP_400_BAD_REQUEST)
-        
-        if otp:
-            cache_key = f"otp_{mobile_number}"
-            cached_data = cache.get(cache_key)
-            if cached_data and cached_data.get("otp") == otp:
-                cache.delete(cache_key)  # OTP is one-time use only
-                return Response({"message": "Login successful.", "user_id": user.id}, status=status.HTTP_200_OK)
-            return Response({"error": "Invalid or expired OTP."}, status=status.HTTP_400_BAD_REQUEST)
-        
-        # If neither password nor OTP is provided, generate and send OTP
-        rate_limit_key = f"otp_rate_limit_{mobile_number}"
-        requests_made = cache.get(rate_limit_key, 0)
-        if requests_made >= OTP_RATE_LIMIT['MAX_REQUESTS']:
-            reset_time = cache.get(f"otp_rate_limit_reset_time_{mobile_number}")
-            if reset_time:
-                remaining_time = reset_time - timezone.now()
-                return Response({"rate_limit": f"Too many OTP requests. Try again after {remaining_time}."}, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Generate OTP and store it in cache
-        generated_otp = get_random_string(length=4, allowed_chars='0123456789')
-        cache.set(cache_key, {"otp": generated_otp}, timeout=OTP_EXPIRY_TIME)
-        
-        # Send OTP via SMS
-        if send_sms(mobile_number, generated_otp, "signin"):
-            cache.set(rate_limit_key, requests_made + 1, timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
-            cache.set(f"otp_rate_limit_reset_time_{mobile_number}", timezone.now() + OTP_RATE_LIMIT['TIME_WINDOW'], timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
-            return Response({"message": "OTP sent successfully."}, status=status.HTTP_200_OK)
-        
-        return Response({"error": "Failed to send OTP. Please try again later."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            identifier = data.get("identifier")  # Can be email or mobile number
+            login_type = data.get("login_type")
+            otp = data.get("otp", None)
+            password = data.get("password", None)
+
+            # Determine whether identifier is an email or mobile number
+            user = CustomUser.objects.filter(email=identifier).first() or CustomUser.objects.filter(mobile_number=identifier).first()
+
+            if not user:
+                return Response({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+
+            if login_type == "password":
+                # Authenticate using password
+                if not password:
+                    return Response({"error": "Password is required for password login."}, status=status.HTTP_400_BAD_REQUEST)
+
+                if not user.check_password(password):
+                    return Response({"error": "Invalid credentials."}, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Generate JWT tokens
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    "message": "Login successful",
+                    "refresh": str(refresh),
+                    "access": str(refresh.access_token),
+                }, status=status.HTTP_200_OK)
+
+            elif login_type == "otp":
+                if not otp:
+                    # Generate OTP and send via SMS
+                    generated_otp = get_random_string(length=4, allowed_chars='0123456789')
+                    cache_key = f"otp_{user.mobile_number}"
+                    cache.set(cache_key, {"otp": generated_otp}, timeout=300)
+
+                    message = f"Your login OTP is: {generated_otp} from Only2Bali. Best regards, Straits Partners"
+                    send_sms(user.mobile_number, message)
+
+                    return Response({"message": "OTP sent successfully."}, status=status.HTTP_200_OK)
+
+                else:
+                    # Validate OTP
+                    cache_key = f"otp_{user.mobile_number}"
+                    cached_data = cache.get(cache_key)
+
+                    if not cached_data or cached_data['otp'] != otp:
+                        return Response({"error": "Invalid OTP or expired."}, status=status.HTTP_400_BAD_REQUEST)
+                    
+                    # Generate JWT tokens after successful OTP verification
+                    refresh = RefreshToken.for_user(user)
+                    return Response({
+                        "message": "Login successful",
+                        "refresh": str(refresh),
+                        "access": str(refresh.access_token),
+                    }, status=status.HTTP_200_OK)
+
+            return Response({"error": "Invalid login type."}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
