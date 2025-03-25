@@ -56,9 +56,9 @@ const OtpContainer = () => {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
             />
-            <p className="resend">
+            {/* <p className="resend">
               Didn’t Get a code? <span>Resend Code</span>
-            </p>
+            </p> */}
             <button className="signup-btn" onClick={handleSubmit}>
               Register
             </button>
