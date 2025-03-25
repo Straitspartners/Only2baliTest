@@ -114,8 +114,8 @@ class PasswordResetRequestView(APIView):
                 uid = urlsafe_base64_encode(str(user.pk).encode())
                 
 
-                react_ip="192.168.31.111"
-                reset_url = f"http://{react_ip}:3000/reset-password/{uid}/{token}/" 
+                
+                reset_url = f"https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/reset-password/{uid}/{token}/" 
                 # reset_url = f"{settings.react_ip}/reset-password/{uid}/{token}/"
                 
                 # Send the reset email
