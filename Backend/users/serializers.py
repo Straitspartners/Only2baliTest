@@ -9,6 +9,7 @@ from django.core.exceptions import ValidationError
 from twilio.rest import Client
 from django.core.mail import send_mail
 from django.conf import settings
+import requests
 
 CustomUser  = get_user_model()
 
@@ -27,23 +28,59 @@ def send_email(email, otp):
         print(f"Error sending email: {e}")
 
 
+# def send_sms(mobile_number, message):
+#     """Sends an SMS using SpringEdge."""
+#     try:
+#         # API endpoint provided by SpringEdge
+#         API_URL = "https://instantalerts.co/api/web/send"
+
+#         # Your SpringEdge API credentials and parameters
+#         API_KEY = "146344s491u7fk8c23o6a32ie293inio1255"  # Your provided API key
+#         SENDER_ID = "STRPAT"  # Your provided sender ID
+
+#         # Encoding the message properly (percent-encoded)
+#         message_encoded = requests.utils.quote(message)
+
+#         # Construct the full URL with query parameters
+#         url = f"{API_URL}?apikey={API_KEY}&sender={SENDER_ID}&to={mobile_number}&message=Hello%2C+this+is+a+test+message+from+spring+edge"
+
+#         # Send the request to SpringEdge
+#         response = requests.post(url)
+
+#         # Check if the request was successful
+#         if response.status_code == 200:
+#             print(f"SMS sent successfully to {mobile_number}: {message}")
+#         else:
+#             print(f"Failed to send SMS. Response: {response.status_code} - {response.text}")
+#     except Exception as e:
+#         print(f"Error sending SMS: {e}")
+
 import requests
 
-def send_sms(mobile_number, message):
+def send_sms(mobile_number, otp, message_type="signup"):
     """Sends an SMS using SpringEdge."""
     try:
         # API endpoint provided by SpringEdge
         API_URL = "https://instantalerts.co/api/web/send"
 
         # Your SpringEdge API credentials and parameters
-        API_KEY = "665dn4r9vr61o58qo67q9ci766op2789"  # Your provided API key
-        SENDER_ID = "SEDEMO"  # Your provided sender ID
+        API_KEY = "146344s491u7fk8c23o6a32ie293inio1255"  # Your provided API key
+        SENDER_ID = "STRPAT"  # Your provided sender ID
 
-        # Encoding the message properly (percent-encoded)
+        # Template messages
+        templates = {
+            "signup": "Dear User, Your signup OTP is {otp} from Only2Bali. Best regards, Straits Partners",
+            "signin": "Dear User, Your sign-in OTP is {otp} from Only2Bali. Best regards, Straits Partners"
+        }
+
+        # Select the appropriate message template and insert OTP
+        message = templates.get(message_type, "Invalid message type").format(otp=otp)
+
+        # URL encode the message
         message_encoded = requests.utils.quote(message)
 
         # Construct the full URL with query parameters
-        url = f"{API_URL}?apikey={API_KEY}&sender={SENDER_ID}&to={mobile_number}&message=Hello%2C+this+is+a+test+message+from+spring+edge"
+        url = f"{API_URL}?apikey={API_KEY}&sender={SENDER_ID}&to={mobile_number}&message={message_encoded}"
 
         # Send the request to SpringEdge
         response = requests.post(url)
@@ -51,10 +88,14 @@ def send_sms(mobile_number, message):
         # Check if the request was successful
         if response.status_code == 200:
             print(f"SMS sent successfully to {mobile_number}: {message}")
+            return True
         else:
             print(f"Failed to send SMS. Response: {response.status_code} - {response.text}")
+            return False
     except Exception as e:
         print(f"Error sending SMS: {e}")
+        return False
+
 
 
 
