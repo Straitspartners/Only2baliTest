@@ -64,14 +64,14 @@ OTP_RATE_LIMIT = {
 #         return Response(registration_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class RegistrationView(APIView):
-    """Handles user registration and OTP generation and verification."""
+class LoginView(APIView):
+    """Handles user login via OTP."""
     
     def post(self, request):
-        registration_serializer = RegistrationSerializer(data=request.data)
+        login_serializer = LoginSerializer(data=request.data)
         
-        if registration_serializer.is_valid():
-            data = registration_serializer.validated_data
+        if login_serializer.is_valid():
+            data = login_serializer.validated_data
             mobile_number = data['mobile_number']
             
             # Check if the user exceeded OTP rate limits
@@ -89,7 +89,7 @@ class RegistrationView(APIView):
             cache.set(cache_key, {"otp": otp, "user_data": data}, timeout=300)  # Store OTP for 5 minutes
             
             # Send OTP via SMS
-            if send_sms(mobile_number, otp, "signup"):
+            if send_sms(mobile_number, otp, "signin"):
                 # Increment OTP request count and set reset time
                 cache.set(rate_limit_key, requests_made + 1, timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
                 cache.set(f"otp_rate_limit_reset_time_{mobile_number}", timezone.now() + OTP_RATE_LIMIT['TIME_WINDOW'], timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
@@ -98,7 +98,7 @@ class RegistrationView(APIView):
 
             return Response({"error": "Failed to send OTP. Please try again later."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        return Response(registration_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(login_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class OTPVerificationView(APIView):
