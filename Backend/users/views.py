@@ -115,7 +115,7 @@ class PasswordResetRequestView(APIView):
                 
 
                 
-                reset_url = f"https://pybackend-eeamcqf4evb6hacn.centralindia-01.azurewebsites.net/reset-password/{uid}/{token}/" 
+                reset_url = f"https://only2bali.com/reset-password/{uid}/{token}/" 
                 # reset_url = f"{settings.react_ip}/reset-password/{uid}/{token}/"
                 
                 # Send the reset email
