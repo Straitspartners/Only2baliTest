@@ -73,15 +73,15 @@ const App = () => {
             <button className="Home-hero-button" src="/GetStarted">
               
               Plan My Trip{" "}
-              <span
-                style={{
-                  fontSize: "24px",
-                  color: "white",
-                  paddingLeft: "10px",
-                }}
-              >
-                {"🠣"}
-              </span>
+              <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="30"
+    height="30"
+    viewBox="0 0 24 24"
+    style={{ fill: "white", paddingTop: "1px" }}
+  >
+    <path d="M12 16l4-4h-3V4h-2v8H8l4 4z" />
+  </svg>
             </button>
             </a>
           </div>
@@ -119,15 +119,15 @@ const App = () => {
              <a href="#whyus">
             <button className="Home-hero-button">
               Create Your memories{" "}
-              <span
-                style={{
-                  fontSize: "24px",
-                  color: "white",
-                  paddingLeft: "10px",
-                }}
-              >
-                {"🠣"}
-              </span>
+              <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="30"
+    height="30"
+    viewBox="0 0 24 24"
+    style={{ fill: "white", paddingTop: "1px" }}
+  >
+    <path d="M12 16l4-4h-3V4h-2v8H8l4 4z" />
+  </svg>
             </button>
             </a>
           </div>
@@ -211,15 +211,15 @@ const App = () => {
              <a href="#Destinations">
             <button className="Home-hero-button">
               Plan Your Holiday{" "}
-              <span
-                style={{
-                  fontSize: "24px",
-                  color: "white",
-                  paddingLeft: "10px",
-                }}
-              >
-                {"🠣"}
-              </span>
+              <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="30"
+    height="30"
+    viewBox="0 0 24 24"
+    style={{ fill: "white", paddingTop: "1px" }}
+  >
+    <path d="M12 16l4-4h-3V4h-2v8H8l4 4z" />
+  </svg>
             </button>
             </a>
           </div>
