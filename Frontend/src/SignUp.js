@@ -109,7 +109,7 @@ const Signup = () => {
   <option style={{ color: "black" }} value="Female">Female</option>
   <option  style={{ color: "black" }} value="Other">Other</option>
 </select>
-            <input type="date" placeholder="Date of Birth" className="input-field" value={dob} required onChange={(e) => setDob(e.target.value)} />
+            <input type="date" placeholder="Date of Birth" className="input-field" value={dob} required onChange={(e) => setDob(e.target.value)}  min="1900-01-01" max="2025-12-31" />
             <input type="password" placeholder="Password" className="input-field" value={password} required onChange={(e) => setPassword(e.target.value)} />
             <input type="password" placeholder="Confirm Password" className="input-field" value={password_confirmation} required onChange={(e) => setConfirmPassword(e.target.value)} />
             <input type="email" placeholder="Email" className="input-field" value={email} required onChange={(e) => setEmail(e.target.value)} />
