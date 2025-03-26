@@ -255,7 +255,7 @@ const Placestovisit = () => {
          className="nxt-btns"
         disabled={isLoading}
       >
-        {isLoading ? "Submitting..." : ""}
+        {isLoading ? "" : ""}
     
             
               <img

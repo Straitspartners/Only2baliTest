@@ -459,7 +459,7 @@ const BalineseAdventureForm = () => {
             />
           </button>
           <button type="submit" disabled={isLoading} className="nxt-btns">
-            {isLoading ? "Submitting..." : ""}
+            {isLoading ? "..." : ""}
             <img
               src={rightbtn}
               alt="icon"
