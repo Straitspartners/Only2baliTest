@@ -419,7 +419,7 @@ const BalineseAdventureForm = () => {
               >
                 <option value="">Select an Airport</option>
                 {airports.map((airport) => (
-                  <option key={airport.icao_code} value={airport.icao_code}>
+                  <option key={airport.airport_name} value={airport.airport_name}>
                     {airport.airport_name}
                   </option>
                 ))}
