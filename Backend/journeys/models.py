@@ -138,7 +138,7 @@ class DietaryChoice(models.Model):
         ('Vegan', 'Vegan'),
         ('Keto', 'Keto'),
         ('Halal', 'Halal'),
-        ('Souvenir Foods', 'Souvenir Foods'),
+        ('Soto Ayam', 'Soto Ayam'),
     ]
     
     choice_name = models.CharField(max_length=50, choices=DIETARY_CHOICES, unique=True)
@@ -296,7 +296,7 @@ class VendorType(models.Model):
     VENDOR_CHOICES = [
         ('Vegetable Vendor', 'Vegetable Vendor'),
         ('Utensil Vendor', 'Utensil Vendor'),
-        ('Travel Agent', 'Travel Agent'),
+        ('Photography', 'Photography'),
         ('Event Organizer', 'Event Organizer'),
         ('Other', 'Other'),
     ]
