@@ -13,7 +13,7 @@ import rightbtn from "../src/Asset/Button 3.png";
 const vendors = [
 
   { id: 4, type: "event_organizer", name: "Event Organizer", img: organizer },
-  { id: 3, type: "travel_agent", name: "Photography", img: travel },
+  { id: 6, type: "travel_agent", name: "Photography", img: travel },
   { id: 2, type: "utensil", name: "Utensil Vendors", img: utensils },
   { id: 1, type: "vegetable", name: "Vegetable Vendors", img: vegetables },
 
