@@ -16,7 +16,7 @@ import food8 from "../src/Asset/food8.png";
 import food9 from "../src/Asset/food9.png";
 import food10 from "../src/Asset/food10.png";
 import food11 from "../src/Asset/food11.png";
-import food12 from "../src/Asset/food12.png";
+import food12 from "../src/Asset/food12.jpg";
 import food13 from "../src/Asset/food13.png";
 import food14 from "../src/Asset/food14.png";
 
