@@ -39,7 +39,7 @@ const dietary = [
   { id: 1, type: "vegan", name: "Vegan", img: food9 },
   { id: 2, type: "keto", name: "Keto", img: food10 },
   { id: 3, type: "halal", name: "Halal", img: food11 },
-  { id: 4, type: "souvenir", name: "Souvenir", img: food12 },
+  { id: 4, type: "souvenir", name: "Soto Ayam", img: food12 },
 ];
 
 const nonveg = [
