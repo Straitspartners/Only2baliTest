@@ -8,7 +8,7 @@ const GlobalLoader = ({ loading }) => {
   return (
     <div style={styles.overlay}>
       <div style={styles.loaderContainer}>
-        <PacmanLoader color="#ffcc00" size={40} loading={loading} />
+        <PacmanLoader color="#D87250" size={40} loading={loading} />
         <p style={styles.text}>Loading, please wait...</p>
       </div>
     </div>
