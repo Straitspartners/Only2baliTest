@@ -1,12 +1,16 @@
 .adventure-form {
   background-image: url("Asset/bgflight.png");
-  color: white;
-  justify-content: center;
-  align-items: center;
-  min-height: 120vh;
-  width: 100%;
-  padding: 20px;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
+  min-height: 100vh; /* ensures full vertical coverage */
+  width: 100%;       /* or 100vw if you prefer exact viewport width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;         /* ensure no default margin */
+  padding: 0;        /* ensure no default padding */
 }
 
 .adventure-form h2 {
@@ -79,7 +83,7 @@
   .adventure-form {
       height: 500px;
       padding: 40px;
-      min-height: 150vh;
+      
   }
 
   .adventure-form h2 {
@@ -96,7 +100,7 @@
 /* Tablets (max-width: 992px) */
 @media (max-width: 992px) {
   .adventure-form {
-      height: 550px;
+    min-height: 100vh;
       padding: 30px;
   }
 
@@ -123,7 +127,7 @@
 /* Medium Tablets or Large Phones (max-width: 768px) */
 @media (max-width: 768px) {
   .adventure-form {
-      height: 450px;
+    min-height: 100vh;
       padding: 25px;
   }
 
@@ -152,7 +156,7 @@
 /* Small Tablets or Large Phones (max-width: 600px) */
 @media (max-width: 600px) {
   .adventure-form {
-      height: 400px;
+    min-height: 100vh;
       padding: 20px;
   }
 
@@ -175,7 +179,7 @@
 /* Small Phones (max-width: 480px) */
 @media (max-width: 480px) {
   .adventure-form {
-      height: 350px;
+    min-height: 150vh;
       padding: 15px;
   }
 
