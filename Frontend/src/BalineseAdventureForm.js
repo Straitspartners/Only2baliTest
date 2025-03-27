@@ -372,7 +372,7 @@ const BalineseAdventureForm = () => {
       <div className="loading-bar-container">
         <div className="loading-bar" style={{ width: "25%" }}></div>
       </div>
-      <h2>When Will This Balinese Adventure Begin?</h2>
+      <h2 style={{color:"#795649"}}>When Will This Balinese Adventure Begin?</h2>
       <p className="ba-p">
         The more specific you are, the more we can ensure your experience on
         this paradise island.
@@ -446,7 +446,7 @@ const BalineseAdventureForm = () => {
 
         <br></br>
 
-        <div className="nxt-btn"  >
+        <div className="nxt-btnn"   style={{ width: "15%", maxWidth: "100%" }}>
           <button
             onClick={() => navigate(-1)}
             disabled={isLoading}

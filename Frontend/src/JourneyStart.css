@@ -297,6 +297,11 @@ p {
   .form input, .form button, .crew-item button {
     padding: 8px;
   }
+  .nxt-btnn {
+ 
+    width: 40% !important;
+    margin-bottom: 30px;
+  }
 }
 
 @media (max-width: 320px) {

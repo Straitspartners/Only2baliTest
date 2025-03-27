@@ -223,7 +223,7 @@ const Tourguide = () => {
         </form>
       </div>
    
-      <div className="nxt-btn">
+      <div className="nxt-btnn"   style={{ width: "15%", maxWidth: "100%" }}>
   <button
     onClick={() => navigate(-1)}
     disabled={isLoading}
