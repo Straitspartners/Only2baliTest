@@ -48,6 +48,7 @@ const OtpContainer = () => {
               Just enter the OTP we sent to your phone!
             </h2>
             <p style={{ color: "white" }}>({mobile_number})</p>
+            <p> We've also sent the OTP to your email for your convenience.</p>
             <input
               className="input-field"
               style={{ width: "80%" }}
