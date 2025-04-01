@@ -53,6 +53,9 @@ const Signup = () => {
             if (errorData.mobile_number) {
               errorMessages += `Mobile Number: ${errorData.mobile_number} `;
             }
+            if (errorData.password) {
+              errorMessages += `Password: ${errorData.password} `;
+            }
             if (errorData.password_confirmation) {
               errorMessages += `Password: ${errorData.password_confirmation} `;
             }

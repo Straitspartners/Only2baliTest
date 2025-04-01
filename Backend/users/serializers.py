@@ -130,10 +130,21 @@ class RegistrationSerializer(serializers.Serializer):
     password_confirmation = serializers.CharField(write_only=True)
     dob=serializers.DateField()
     gender=serializers.CharField(max_length=10)
+        
+    def validate_username(self, value):
+        if not re.match(r'^[a-zA-Z0-9_ ]{3,20}$', value):
+            raise ValidationError('Username must be alphanumeric and between 3 to 20 characters.')
+
 
     def validate_mobile_number(self, value):
         if not re.match (r'^\+?[1-9]\d{1,14}$', value):  # E.164 format validation
             raise serializers.ValidationError("Invalid mobile number format.")
+        return value
+    
+    def validate_password(self, value):
+        # Allow letters, numbers, underscores, spaces, and special characters
+        if not re.match(r'^[a-zA-Z0-9_ !@#$%^&*()\-_=+\[\]{}|;:,.<>?]{8,20}$', value):
+            raise ValidationError('Password must be atleast 8 characters ')
         return value
 
     def validate(self, data):
