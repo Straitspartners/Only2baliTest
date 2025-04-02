@@ -103,11 +103,12 @@ const Signup = () => {
             />
            <select
   className="input-field"
+  placeholder="Gender"
   value={gender}
   required
   onChange={(e) => setGender(e.target.value)}
 >
-<option  style={{ color: "black" }} value="Gender">None</option>
+
   <option  style={{ color: "black" }} value="Male">Male</option>
   <option style={{ color: "black" }} value="Female">Female</option>
   <option  style={{ color: "black" }} value="Other">Other</option>
