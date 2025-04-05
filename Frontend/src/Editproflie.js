@@ -236,12 +236,24 @@ const home=()=>{
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
               />
-                <lable className="Ep-lable">Gender</lable>
+                {/* <lable className="Ep-lable">Gender</lable>
             < input
                 label="Gender" className="form-control"
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
-              />
+              /> */}
+              <label className="Ep-lable">Gender</label>
+<select
+  className="form-control"
+  value={gender}
+  onChange={(e) => setGender(e.target.value)}
+>
+<option value="" disabled selected hidden>Select...</option>
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+  <option value="Prefer not to say">Prefer not to say</option>
+</select>
+
                 <lable className="Ep-lable">E-mail</lable>
               <input
                 label="Email Id" className="form-control"
