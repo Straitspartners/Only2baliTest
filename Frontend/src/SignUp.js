@@ -110,10 +110,10 @@ const Signup = () => {
               required
               onChange={(e) => setGender(e.target.value)}
             >
-              <option style={{ color: "black" }} value="Gender">None</option>
+              <option value="" disabled selected hidden>Gender</option>
               <option style={{ color: "black" }} value="Male">Male</option>
               <option style={{ color: "black" }} value="Female">Female</option>
-              <option style={{ color: "black" }} value="Other">Other</option>
+              <option style={{ color: "black" }} value="Other">Prefer not to say</option>
             </select>
             <input
               type="date"
