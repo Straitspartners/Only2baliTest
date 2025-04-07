@@ -269,7 +269,7 @@ const Login = () => {
               </div>
               
               <div className='signin-div'>
-              <p className="signin-text">Forget password? <button onClick={Forgetpassword}>Reset</button></p>
+              <p className="signin-text">Forgot password? <button onClick={Forgetpassword}>Reset</button></p>
               </div>
             </form>
           </div>
