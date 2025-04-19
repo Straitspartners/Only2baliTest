@@ -306,7 +306,7 @@ const App = () => {
           </thead>
           <tbody>
             <tr>
-              <td className="copyright">Copyright ©2024 Only2Bali. All Rights Reserved</td>
+              <td className="copyright">Copyright ©2025 Only2Bali. All Rights Reserved</td>
               <td></td>
             </tr>
           </tbody>
