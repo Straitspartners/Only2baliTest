@@ -45,7 +45,7 @@ const Paperwork = () => {
         </p>
         <p className="p-p">
           {" "}
-           ✅ Currency Exchange – Ensure your International payment method before travel.
+           ✅ Currency Exchange – Ensure your International payment methods before travel.
         </p>
       </div>
       <br></br>
