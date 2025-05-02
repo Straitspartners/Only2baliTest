@@ -492,9 +492,9 @@ class DeleteJourneyPreferences(APIView):
 #         return Response({"error": "Journey not found"}, status=status.HTTP_404_NOT_FOUND)
 
 ZOHO_CRM_API_URL = "https://www.zohoapis.com/crm/v2/Leads"  # The Zoho API endpoint for Leads
-ZOHO_REFRESH_TOKEN = "1000.267b3f8ed8cb6c7e6c808da148e2a2f0.3deeb0c294ae84562e6b2bf2a29aa94f"  # Store this securely (e.g., in environment variables)
-ZOHO_CLIENT_ID = "1000.V8XR2N45A7G9PTS1JOJOYJZKLQDYIJ"
-ZOHO_CLIENT_SECRET = "3159b22f55bafb596442cc7208d2a693787e0c0050"
+ZOHO_REFRESH_TOKEN = "1000.dc120e61acd3cea85b8270cbe6f61e85.27e9028c5169e5bf949ed68685ba661a"  # Store this securely (e.g., in environment variables)
+ZOHO_CLIENT_ID = "1000.870NN2IWND83CIOV6RK1Y5EO8W0K8X"
+ZOHO_CLIENT_SECRET = "db28901890287333be14a593750426b6faf7e3c73d"
 ZOHO_REDIRECT_URI = "www.google.com"
 
 
@@ -534,7 +534,7 @@ def send_to_zoho_crm(journey):
 
     # Get the stored access token (ensure you fetch it securely)
     # access_token = "1000.88a1145ab37602435faded4bc5ac4847.4b997f447ba1327827c6aff18920ae06"  # Replace with your logic to fetch the stored access token
-    access_token = "1000.fba9ec4f915b159ef52ee80926650b98.72dde9b5f628456b9c5d01da1330986b"
+    access_token = "1000.9c30ce611965a79147eac6e34bf06df0.c7c273349adc1cc369fb73d387c83c1d"
     refresh_token = ZOHO_REFRESH_TOKEN  # Replace with the logic to fetch the stored refresh token
 
     try:
@@ -542,12 +542,43 @@ def send_to_zoho_crm(journey):
         data = {
             "data": [
                 { 
-                    "User_Name": journey.user.username,  # User Name
+                    # "User_Name": journey.user.username,  # User Name
+                    # "Email_ID": journey.user.email,  # Email ID
+                    # "Mobile_No": journey.user.mobile_number,  # Mobile Number
+                    # "Date_Of_Birth": journey.user.dob.strftime("%Y-%m-%d") if journey.user.dob else None,
+                    # "Genders": journey.user.gender if journey.user.gender else "Not specified",
+                    # "Single_Line_2":journey.name, #for name
+                    # "Last_Name": journey.name, 
+                    # "Age": journey.age,  # Age field
+                    # "No_of_people": journey.number_of_people,  # Number of People
+                    # "Times_Visited_Bali": journey.times_visited_bali,  # Times Visited Bali
+                    # "Crew_Type": journey.get_crew_type_display(),  # Crew Type # Example field to send to Zoho
+                    # "Places_To_Visit": ", ".join([place.get_place_name_display() for place in journey.placestovisit_set.first().place.all()]) if journey.placestovisit_set.exists() else "Not specified",  # Places to Visit
+                    # "Flight_Class": journey.traveldetails.flight_class if journey.traveldetails else "Not specified",  # Flight Class
+                    # "From": journey.traveldetails.from_date.strftime("%Y-%m-%d") if journey.traveldetails.from_date else None,  # Convert to string
+                    # "To": journey.traveldetails.to_date.strftime("%Y-%m-%d") if journey.traveldetails.to_date else None,  # Convert to string
+                    # "International_Airport":journey.traveldetails.international_airport,
+                    # "Vehicle_Type": ", ".join([vehicle.vehicle_type_name for vehicle in journey.vehiclepreferences.vehicle.all()]) if journey.vehiclepreferences and journey.vehiclepreferences.vehicle.exists() else "Not specified",
+                    # "Include_Driver": journey.vehiclepreferences.include_driver if journey.vehiclepreferences and journey.vehiclepreferences.include_driver is not None else "Not specified",  # Include Driver
+                    # "Rent_Period": journey.vehiclepreferences.rent_period if journey.vehiclepreferences else "Not specified",
+                    # "Stay_Type": ", ".join([stay.stay_type_name for stay in journey.staypreferences.stay_type.all()]) if journey.staypreferences else "Not specified",
+                    # "Extra_Requests": journey.extrarequests.requests if journey.extrarequests else "Not specified",
+                    # "Language_Choice": ", ".join([lang.language_name for lang in journey.tourguidepreferences.preferred_languages.all()]) if journey.tourguidepreferences else "Not specified",
+                    # "Food_Preferences": ", ".join([
+                    #     *([choice.choice_name for choice in journey.foodpreferences.vegetarian_choice.all()] if journey.foodpreferences.vegetarian_choice.exists() else []),
+                    #     *([choice.choice_name for choice in journey.foodpreferences.non_vegetarian_choice.all()] if journey.foodpreferences.non_vegetarian_choice.exists() else []),
+                    #     *([choice.choice_name for choice in journey.foodpreferences.dietary_choice.all()] if journey.foodpreferences.dietary_choice.exists() else []),
+                    #     *([choice.choice_name for choice in journey.foodpreferences.balinese_choice.all()] if journey.foodpreferences.balinese_choice.exists() else []),
+                    # ]) if journey.foodpreferences else "Not specified",
+                    # "Food_Service_Type": journey.cateringorchef.service_type if journey.cateringorchef else "Not specified",
+                    # "Vendor": ", ".join([vendor.name for vendor in journey.vendor.vendor_type.all()]) if journey.vendor else "Not specified",	
+                    
+                    "Username": journey.user.username,  # User Name
                     "Email_ID": journey.user.email,  # Email ID
                     "Mobile_No": journey.user.mobile_number,  # Mobile Number
-                    "Date_Of_Birth": journey.user.dob.strftime("%Y-%m-%d") if journey.user.dob else None,
+                    "Date_of_Birth": journey.user.dob.strftime("%Y-%m-%d") if journey.user.dob else None,
                     "Genders": journey.user.gender if journey.user.gender else "Not specified",
-                    "Single_Line_2":journey.name, #for name
+                    "Name1  ":journey.name, #for name
                     "Last_Name": journey.name, 
                     "Age": journey.age,  # Age field
                     "No_of_people": journey.number_of_people,  # Number of People
@@ -572,7 +603,7 @@ def send_to_zoho_crm(journey):
                     ]) if journey.foodpreferences else "Not specified",
                     "Food_Service_Type": journey.cateringorchef.service_type if journey.cateringorchef else "Not specified",
                     "Vendor": ", ".join([vendor.name for vendor in journey.vendor.vendor_type.all()]) if journey.vendor else "Not specified",	
-                    
+
                 }
             ]
         }
