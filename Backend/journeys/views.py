@@ -585,8 +585,8 @@ def send_to_zoho_crm(journey):
                     "Name1":journey.name, #for name
                     "Last_Name": journey.name, 
                     "Age": journey.age,  # Age field
-                    "No_of_people": journey.number_of_people,  # Number of People
-                    "Times_Visited_Bali": journey.times_visited_bali,  # Times Visited Bali
+                    "No_of_people": str(journey.number_of_people),  # Number of People
+                    "Times_Visited_Bali": str(journey.times_visited_bali),  # Times Visited Bali
                     "Crew_Type": journey.get_crew_type_display(),  # Crew Type # Example field to send to Zoho
                     "Places_To_Visit": ", ".join([place.get_place_name_display() for place in journey.placestovisit_set.first().place.all()]) if journey.placestovisit_set.exists() else "Not specified",  # Places to Visit
                     "Flight_Class": journey.traveldetails.flight_class if journey.traveldetails else "Not specified",  # Flight Class
