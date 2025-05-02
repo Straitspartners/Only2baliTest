@@ -492,9 +492,9 @@ class DeleteJourneyPreferences(APIView):
 #         return Response({"error": "Journey not found"}, status=status.HTTP_404_NOT_FOUND)
 
 ZOHO_CRM_API_URL = "https://www.zohoapis.com/crm/v2/Leads"  # The Zoho API endpoint for Leads
-ZOHO_REFRESH_TOKEN = "1000.dc120e61acd3cea85b8270cbe6f61e85.27e9028c5169e5bf949ed68685ba661a"  # Store this securely (e.g., in environment variables)
-ZOHO_CLIENT_ID = "1000.870NN2IWND83CIOV6RK1Y5EO8W0K8X"
-ZOHO_CLIENT_SECRET = "db28901890287333be14a593750426b6faf7e3c73d"
+ZOHO_REFRESH_TOKEN = "1000.31c6b9a426f99aec2157bd3e3c47fd2c.f5aa29e4be9e628c8abab95ac41b8112"  # Store this securely (e.g., in environment variables)
+ZOHO_CLIENT_ID = "1000.XC1IMB2L2FDB2C6EBUDGTATH5YE4CI"
+ZOHO_CLIENT_SECRET = "de9880e8d14f422eb3c76ce2f5962e306eda740936"
 ZOHO_REDIRECT_URI = "www.google.com"
 
 
@@ -534,7 +534,7 @@ def send_to_zoho_crm(journey):
 
     # Get the stored access token (ensure you fetch it securely)
     # access_token = "1000.88a1145ab37602435faded4bc5ac4847.4b997f447ba1327827c6aff18920ae06"  # Replace with your logic to fetch the stored access token
-    access_token = "1000.9c30ce611965a79147eac6e34bf06df0.c7c273349adc1cc369fb73d387c83c1d"
+    access_token = "1000.f44fd57090d210de62d655dbea99d15b.ccde0e61ea8c37d16745d705e5e6cfa9"
     refresh_token = ZOHO_REFRESH_TOKEN  # Replace with the logic to fetch the stored refresh token
 
     try:
