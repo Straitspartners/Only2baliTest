@@ -572,9 +572,11 @@ def send_to_zoho_crm(journey):
                     # ]) if journey.foodpreferences else "Not specified",
                     # "Food_Service_Type": journey.cateringorchef.service_type if journey.cateringorchef else "Not specified",
                     # "Vendor": ", ".join([vendor.name for vendor in journey.vendor.vendor_type.all()]) if journey.vendor else "Not specified",	
-                    "layout": {
+                    "Layout": {
+                        "name":"Only2Bali",
                         "id": "3625640000050082039"
                     },
+                    "Multi_Select_2": [],
                     "Username": journey.user.username,  # User Name
                     "Email_ID": journey.user.email,  # Email ID
                     "Mobile_No": journey.user.mobile_number,  # Mobile Number
