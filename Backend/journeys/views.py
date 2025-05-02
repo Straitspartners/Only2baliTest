@@ -806,17 +806,13 @@ def send_to_zoho_crm(journey):
 
 def confirm_journey(request, journey_id):
     try:
-        # Retrieve the journey preference for the user
         journey = JourneyPreferences.objects.get(id=journey_id, user=request.user)
-
-        # Set the journey as confirmed
         journey.confirmed = True
         journey.save()
 
-        # Send the journey details to Zoho CRM
         zoho_response = send_to_zoho_crm(journey)
+        logger.info("Zoho Response: %s", zoho_response)  # 👈 Add this line
 
-        # Check if Zoho CRM response was successful
         if zoho_response.get("data") and zoho_response["data"][0].get("status") == "success":
             return Response(
                 {"message": "Journey confirmed successfully and sent to Zoho CRM."},
@@ -824,7 +820,10 @@ def confirm_journey(request, journey_id):
             )
         else:
             return Response(
-                {"error": "Journey confirmed but failed to send to Zoho CRM."},
+                {
+                    "error": "Journey confirmed but failed to send to Zoho CRM.",
+                    "zoho_response": zoho_response  # 👈 Return the actual response for debugging
+                },
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -832,6 +831,7 @@ def confirm_journey(request, journey_id):
         return Response({"error": "Journey not found."}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     
 # def confirm_journey(request, journey_id):
 #     try:

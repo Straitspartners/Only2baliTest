@@ -570,7 +570,7 @@ const ItineraryPage = () => {
       navigate("/dashboardpreferences");
     } catch (error) {
       console.error("Error confirming journey:", error);
-      alert("Error confirming journey. Please try again.");
+      alert(`Error confirming journey: ${error.response?.data?.error || error.message}`);
     }
   };
 
