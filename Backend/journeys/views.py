@@ -576,7 +576,7 @@ def send_to_zoho_crm(journey):
                         "name":"Only2Bali",
                         "id": "3625640000050082039"
                     },
-                    "Multi_Select_2": [],
+                    "Multi_Select_2": ["",""],
                     "Username": journey.user.username,  # User Name
                     "Email_ID": journey.user.email,  # Email ID
                     "Mobile_No": journey.user.mobile_number,  # Mobile Number
