@@ -578,7 +578,7 @@ def send_to_zoho_crm(journey):
                     "Mobile_No": journey.user.mobile_number,  # Mobile Number
                     "Date_of_Birth": journey.user.dob.strftime("%Y-%m-%d") if journey.user.dob else None,
                     "Genders": journey.user.gender if journey.user.gender else "Not specified",
-                    "Name1  ":journey.name, #for name
+                    "Name1":journey.name, #for name
                     "Last_Name": journey.name, 
                     "Age": journey.age,  # Age field
                     "No_of_people": journey.number_of_people,  # Number of People
@@ -811,30 +811,30 @@ def confirm_journey(request, journey_id):
         zoho_response = send_to_zoho_crm(journey)
 
         # Generate the PDF for the journey details
-        pdf_buffer = generate_pdf(journey)
+        # pdf_buffer = generate_pdf(journey)
 
-        # Prepare the email subject and body
-        subject = "Journey Confirmation"
-        body = "Hello,\n\nYour journey has been successfully confirmed. Please find the journey details attached."
+        # # Prepare the email subject and body
+        # subject = "Journey Confirmation"
+        # body = "Hello,\n\nYour journey has been successfully confirmed. Please find the journey details attached."
 
-        # Create the email message
-        email = EmailMessage(
-            subject=subject,
-            body=body,
-            from_email=settings.EMAIL_HOST_USER,
-            to=[settings.EMAIL_HOST_USER],
-        )
+        # # Create the email message
+        # email = EmailMessage(
+        #     subject=subject,
+        #     body=body,
+        #     from_email=settings.EMAIL_HOST_USER,
+        #     to=[settings.EMAIL_HOST_USER],
+        # )
 
-        # Attach the PDF file
-        email.attach(f"journey_{journey.id}_confirmation.pdf", pdf_buffer.read(), "application/pdf")
+        # # Attach the PDF file
+        # email.attach(f"journey_{journey.id}_confirmation.pdf", pdf_buffer.read(), "application/pdf")
 
-        # Send the email
-        email.send()
-        # Check if Zoho CRM response was successful
-        if zoho_response.get("data") and zoho_response["data"][0].get("status") == "success":
-            return Response({"message": "Journey confirmed successfully and confirmation PDF sent, also sent as a lead to Zoho CRM!"}, status=status.HTTP_200_OK)
-        else:
-            return Response({"error": "Failed to send journey details to Zoho CRM"}, status=status.HTTP_400_BAD_REQUEST)
+        # # Send the email
+        # email.send()
+        # # Check if Zoho CRM response was successful
+        # if zoho_response.get("data") and zoho_response["data"][0].get("status") == "success":
+        #     return Response({"message": "Journey confirmed successfully and confirmation PDF sent, also sent as a lead to Zoho CRM!"}, status=status.HTTP_200_OK)
+        # else:
+        #     return Response({"error": "Failed to send journey details to Zoho CRM"}, status=status.HTTP_400_BAD_REQUEST)
 
     except JourneyPreferences.DoesNotExist:
         return Response({"error": "Journey not found"}, status=status.HTTP_404_NOT_FOUND)
