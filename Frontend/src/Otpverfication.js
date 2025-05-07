@@ -53,7 +53,7 @@ const OtpContainer = () => {
               className="input-field"
               style={{ width: "80%" }}
               type="text"
-              maxLength="6"
+              maxLength="4"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
             />
