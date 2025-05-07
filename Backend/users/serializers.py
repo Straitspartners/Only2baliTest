@@ -163,27 +163,36 @@ class RegistrationSerializer(serializers.Serializer):
 
         return data
 
-class OTPVerificationSerializer(serializers.Serializer):
-    """Serializer for verifying OTP and creating user."""
+# class OTPVerificationSerializer(serializers.Serializer):
+#     """Serializer for verifying OTP and creating user."""
     
+#     otp = serializers.CharField(max_length=4)
+
+#     def validate(self, data):
+#         # mobile_number = self.context.get('mobile_number')
+#         mobile_number = self.context['view'].kwargs.get('mobile_number')
+#         otp = data.get("otp")
+
+#         if not mobile_number or not otp:
+#             raise serializers.ValidationError({"error": "Missing required fields."})
+
+#         cache_key = f"otp_{mobile_number}"
+#         user_data = cache.get(cache_key)
+#         if not user_data:
+#             raise serializers.ValidationError({"error": "OTP expired or invalid."})
+
+#         if user_data.get("otp") != otp:
+#             raise serializers.ValidationError({"error": "Invalid OTP."})
+
+#         return data
+class OTPVerificationSerializer(serializers.Serializer):
+    """Serializer for verifying OTP input only."""
     otp = serializers.CharField(max_length=4)
 
     def validate(self, data):
-        # mobile_number = self.context.get('mobile_number')
-        mobile_number = self.context['view'].kwargs.get('mobile_number')
-        otp = data.get("otp")
-
-        if not mobile_number or not otp:
-            raise serializers.ValidationError({"error": "Missing required fields."})
-
-        cache_key = f"otp_{mobile_number}"
-        user_data = cache.get(cache_key)
-        if not user_data:
-            raise serializers.ValidationError({"error": "OTP expired or invalid."})
-
-        if user_data.get("otp") != otp:
-            raise serializers.ValidationError({"error": "Invalid OTP."})
-
+        otp = data.get("otp", "").strip()
+        if not otp:
+            raise serializers.ValidationError({"otp": "OTP is required."})
         return data
 
 class PasswordResetRequestSerializer(serializers.Serializer):

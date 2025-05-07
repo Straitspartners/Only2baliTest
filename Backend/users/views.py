@@ -115,40 +115,80 @@ class RegistrationView(APIView):
 
         return Response(registration_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# class OTPVerificationView(APIView):
+#     """Handles OTP verification and user creation."""
+#     def post(self, request,mobile_number):
+#         otp_serializer = OTPVerificationSerializer(data=request.data, context={'view': self})
+
+#         if otp_serializer.is_valid():
+#           #  mobile_number = otp_serializer.validated_data.get('mobile_number')
+#             # otp = otp_serializer.validated_data.get('otp')
+
+#             # Retrieve OTP data from cache
+#             cache_key = f"otp_{mobile_number}"
+#             cached_data = cache.get(cache_key)
+
+#             if not cached_data:
+#                 return Response({"error": "OTP has expired or is invalid."}, status=status.HTTP_400_BAD_REQUEST)
+            
+#             cache.delete(cache_key)
+
+#             # # Verify OTP
+#             # if cached_data['otp'] != otp:
+#             #     return Response({"error": "Invalid OTP."}, status=status.HTTP_400_BAD_REQUEST)
+            
+#             # Create the user after OTP verification
+#             user_data = cached_data['user_data']
+#             user = CustomUser .objects.create_user(
+#                 username=user_data['username'],
+#                 email=user_data['email'],
+#                 password=user_data['password'],  # Make sure password is hashed
+#                 mobile_number=user_data['mobile_number']
+#             )
+
+#             return Response({"message": "User  registered successfully."}, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(otp_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class OTPVerificationView(APIView):
     """Handles OTP verification and user creation."""
-    def post(self, request,mobile_number):
-        otp_serializer = OTPVerificationSerializer(data=request.data, context={'view': self})
+    def post(self, request, mobile_number):
+        otp_serializer = OTPVerificationSerializer(data=request.data)
 
         if otp_serializer.is_valid():
-          #  mobile_number = otp_serializer.validated_data.get('mobile_number')
-            # otp = otp_serializer.validated_data.get('otp')
-
-            # Retrieve OTP data from cache
+            otp = otp_serializer.validated_data.get('otp').strip()
             cache_key = f"otp_{mobile_number}"
             cached_data = cache.get(cache_key)
 
             if not cached_data:
-                return Response({"error": "OTP has expired or is invalid."}, status=status.HTTP_400_BAD_REQUEST)
-            
-            cache.delete(cache_key)
+                return Response({"error": "OTP expired or invalid."}, status=status.HTTP_400_BAD_REQUEST)
 
-            # # Verify OTP
-            # if cached_data['otp'] != otp:
-            #     return Response({"error": "Invalid OTP."}, status=status.HTTP_400_BAD_REQUEST)
-            
-            # Create the user after OTP verification
-            user_data = cached_data['user_data']
-            user = CustomUser .objects.create_user(
+            if cached_data.get("otp") != otp:
+                return Response({"error": "Invalid OTP."}, status=status.HTTP_400_BAD_REQUEST)
+
+            # OTP is correct, proceed to register the user
+            user_data = cached_data.get("user_data")
+
+            # Ensure all required user fields are present
+            required_fields = ['username', 'email', 'password', 'mobile_number', 'dob', 'gender']
+            if not all(field in user_data for field in required_fields):
+                return Response({"error": "Incomplete user data."}, status=status.HTTP_400_BAD_REQUEST)
+
+            user = CustomUser.objects.create_user(
                 username=user_data['username'],
                 email=user_data['email'],
-                password=user_data['password'],  # Make sure password is hashed
-                mobile_number=user_data['mobile_number']
+                password=user_data['password'],
+                mobile_number=user_data['mobile_number'],
+                dob=user_data['dob'],
+                gender=user_data['gender'],
             )
 
-            return Response({"message": "User  registered successfully."}, status=status.HTTP_201_CREATED)
-        else:
-            return Response(otp_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            # ✅ OTP used — remove from cache
+            cache.delete(cache_key)
+
+            return Response({"message": "User registered successfully."}, status=status.HTTP_201_CREATED)
+
+        return Response(otp_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class PasswordResetRequestView(APIView):
     """Handle password reset request by sending a reset email with a token."""
