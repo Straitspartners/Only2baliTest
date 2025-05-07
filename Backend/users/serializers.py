@@ -122,77 +122,60 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ['username','email', 'mobile_number','gender','dob']  # Add other fields you need
 
 class RegistrationSerializer(serializers.Serializer):
-    """Serializer for validating user registration details."""
     username = serializers.CharField(max_length=150)
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
-    mobile_number = serializers.CharField(max_length=15)
     password_confirmation = serializers.CharField(write_only=True)
-    dob=serializers.DateField()
-    gender=serializers.CharField(max_length=10)
-        
+    mobile_number = serializers.CharField(max_length=15)
+    dob = serializers.DateField()
+    gender = serializers.CharField(max_length=10)
+
     def validate_username(self, value):
         if not re.match(r'^[a-zA-Z0-9_ ]{3,20}$', value):
             raise ValidationError('Username must be alphanumeric and between 3 to 20 characters.')
-
+        return value
 
     def validate_mobile_number(self, value):
-        if not re.match (r'^\+?[1-9]\d{1,14}$', value):  # E.164 format validation
+        if not re.match(r'^\+?[1-9]\d{1,14}$', value):  # E.164 format
             raise serializers.ValidationError("Invalid mobile number format.")
         return value
-    
+
     def validate_password(self, value):
-        # Allow letters, numbers, underscores, spaces, and special characters
         if not re.match(r'^[a-zA-Z0-9_ !@#$%^&*()\-_=+\[\]{}|;:,.<>?]{8,20}$', value):
-            raise ValidationError('Password must be atleast 8 characters ')
+            raise ValidationError('Password must be at least 8 characters and valid.')
         return value
 
     def validate(self, data):
-
-        if CustomUser .objects.filter(username=data['username']).exists():
+        if CustomUser.objects.filter(username=data['username']).exists():
             raise serializers.ValidationError({"username": "Username is already in use."})
-        
-        if CustomUser .objects.filter(email=data['email']).exists():
+        if CustomUser.objects.filter(email=data['email']).exists():
             raise serializers.ValidationError({"email": "Email is already in use."})
-        
-        if CustomUser .objects.filter(mobile_number=data['mobile_number']).exists():
+        if CustomUser.objects.filter(mobile_number=data['mobile_number']).exists():
             raise serializers.ValidationError({"mobile_number": "Mobile number is already registered."})
-
         if data['password'] != data['password_confirmation']:
             raise serializers.ValidationError({"password_confirmation": "Passwords do not match."})
-
         return data
 
-# class OTPVerificationSerializer(serializers.Serializer):
-#     """Serializer for verifying OTP and creating user."""
-    
-#     otp = serializers.CharField(max_length=4)
 
-#     def validate(self, data):
-#         # mobile_number = self.context.get('mobile_number')
-#         mobile_number = self.context['view'].kwargs.get('mobile_number')
-#         otp = data.get("otp")
-
-#         if not mobile_number or not otp:
-#             raise serializers.ValidationError({"error": "Missing required fields."})
-
-#         cache_key = f"otp_{mobile_number}"
-#         user_data = cache.get(cache_key)
-#         if not user_data:
-#             raise serializers.ValidationError({"error": "OTP expired or invalid."})
-
-#         if user_data.get("otp") != otp:
-#             raise serializers.ValidationError({"error": "Invalid OTP."})
-
-#         return data
 class OTPVerificationSerializer(serializers.Serializer):
-    """Serializer for verifying OTP input only."""
     otp = serializers.CharField(max_length=4)
 
     def validate(self, data):
-        otp = data.get("otp", "").strip()
-        if not otp:
-            raise serializers.ValidationError({"otp": "OTP is required."})
+        mobile_number = self.context.get('mobile_number')
+        otp = data.get("otp")
+
+        if not mobile_number or not otp:
+            raise serializers.ValidationError({"error": "Missing required fields."})
+
+        cache_key = f"otp_{mobile_number}"
+        cached_data = cache.get(cache_key)
+
+        if not cached_data:
+            raise serializers.ValidationError({"error": "OTP expired or invalid."})
+
+        if cached_data.get("otp") != otp:
+            raise serializers.ValidationError({"error": "Invalid OTP."})
+
         return data
 
 class PasswordResetRequestSerializer(serializers.Serializer):
