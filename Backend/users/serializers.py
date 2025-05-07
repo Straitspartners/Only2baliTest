@@ -169,9 +169,9 @@ class OTPVerificationSerializer(serializers.Serializer):
     otp = serializers.CharField(max_length=4)
 
     def validate(self, data):
-        mobile_number = self.context.get('mobile_number')
-        # mobile_number = self.context['view'].kwargs.get('mobile_number')
-        otp = data.get("otp").strip()
+        # mobile_number = self.context.get('mobile_number')
+        mobile_number = self.context['view'].kwargs.get('mobile_number')
+        otp = data.get("otp")
 
         if not mobile_number or not otp:
             raise serializers.ValidationError({"error": "Missing required fields."})

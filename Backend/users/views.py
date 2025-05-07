@@ -118,12 +118,7 @@ class RegistrationView(APIView):
 class OTPVerificationView(APIView):
     """Handles OTP verification and user creation."""
     def post(self, request,mobile_number):
-        # otp_serializer = OTPVerificationSerializer(data=request.data, context={'view': self})
-        otp_serializer = OTPVerificationSerializer(
-    data=request.data,
-    context={'mobile_number': mobile_number}
-)
-
+        otp_serializer = OTPVerificationSerializer(data=request.data, context={'view': self})
 
         if otp_serializer.is_valid():
           #  mobile_number = otp_serializer.validated_data.get('mobile_number')
