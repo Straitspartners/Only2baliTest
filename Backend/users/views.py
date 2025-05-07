@@ -127,7 +127,7 @@ class OTPVerificationView(APIView):
 
         if otp_serializer.is_valid():
           #  mobile_number = otp_serializer.validated_data.get('mobile_number')
-            otp = otp_serializer.validated_data.get('otp')
+            # otp = otp_serializer.validated_data.get('otp')
 
             # Retrieve OTP data from cache
             cache_key = f"otp_{mobile_number}"
@@ -135,10 +135,12 @@ class OTPVerificationView(APIView):
 
             if not cached_data:
                 return Response({"error": "OTP has expired or is invalid."}, status=status.HTTP_400_BAD_REQUEST)
+            
+            cache.delete(cache_key)
 
-            # Verify OTP
-            if cached_data['otp'] != otp:
-                return Response({"error": "Invalid OTP."}, status=status.HTTP_400_BAD_REQUEST)
+            # # Verify OTP
+            # if cached_data['otp'] != otp:
+            #     return Response({"error": "Invalid OTP."}, status=status.HTTP_400_BAD_REQUEST)
             
             # Create the user after OTP verification
             user_data = cached_data['user_data']
