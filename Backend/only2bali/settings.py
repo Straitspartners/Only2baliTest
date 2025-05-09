@@ -269,11 +269,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',  # Change as per your config
+        'LOCATION': 'rediss://only2bali-redis.redis.cache.windows.net:6380/1',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            "PASSWORD": os.getenv("REDIS_ACCESS_KEY"),
+            "SSL": True,
         }
     }
 }
+
 
 
