@@ -29,179 +29,95 @@ OTP_RATE_LIMIT = {
 
 
 #TO send otp to both email and mobile number
-# class RegistrationView(APIView):
-#     """Handles user registration and OTP generation and verification."""
-    
-#     def post(self, request):
-#         registration_serializer = RegistrationSerializer(data=request.data)
-        
-#         if registration_serializer.is_valid():
-#             data = registration_serializer.validated_data
-#             mobile_number = data['mobile_number']
-#             email = data.get('email')  # Get the email address if provided
-            
-#             # Check if the user exceeded OTP rate limits
-#             rate_limit_key = f"otp_rate_limit_{mobile_number}"
-#             requests_made = cache.get(rate_limit_key, 0)
-#             if requests_made >= OTP_RATE_LIMIT['MAX_REQUESTS']:
-#                 reset_time = cache.get(f"otp_rate_limit_reset_time_{mobile_number}")
-#                 if reset_time:
-#                     remaining_time = reset_time - timezone.now()
-#                     return Response({"rate_limit": f"Too many OTP requests. Try again after {remaining_time}."}, status=status.HTTP_400_BAD_REQUEST)
-
-#             # Generate OTP and store it in cache
-#             otp = get_random_string(length=4, allowed_chars='0123456789')
-#             cache_key = f"otp_{mobile_number}"
-#             cache.set(cache_key, {"otp": otp, "user_data": data}, timeout=300)  # Store OTP for 5 minutes
-            
-#             # Send OTP via SMS
-#             message = f"Your OTP for registration is: {otp}"
-#             send_sms(mobile_number, message,"signup")
-
-#             # Send OTP via Email if email is provided
-#             if email:
-#                 email_subject = "Your OTP for Registration"
-#                 email_message = f"Dear User,\n\nYour OTP for registration with Only2Bali is: {otp}\n\nPlease use this OTP to complete your signup process.\n\nBest regards,\nOnly2Bali Team"
-
-#                 send_mail(
-#                     email_subject,
-#                     email_message,
-#                     settings.DEFAULT_FROM_EMAIL,  # Make sure to define DEFAULT_FROM_EMAIL in settings.py
-#                     [email],
-#                     fail_silently=False,
-#                 )
-
-#             # Increment OTP request count and set reset time
-#             cache.set(rate_limit_key, requests_made + 1, timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
-#             cache.set(f"otp_rate_limit_reset_time_{mobile_number}", timezone.now() + OTP_RATE_LIMIT['TIME_WINDOW'], timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
-            
-#             return Response({"message": "OTP sent successfully to your mobile number and email address."}, status=status.HTTP_200_OK)
-
-#         return Response(registration_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#TO send otp to both email and mobile number
 class RegistrationView(APIView):
     """Handles user registration and OTP generation and verification."""
-
+    
     def post(self, request):
         registration_serializer = RegistrationSerializer(data=request.data)
-
+        
         if registration_serializer.is_valid():
             data = registration_serializer.validated_data
             mobile_number = data['mobile_number']
-            email = data.get('email')
+            email = data.get('email')  # Get the email address if provided
+            
+            # Check if the user exceeded OTP rate limits
+            rate_limit_key = f"otp_rate_limit_{mobile_number}"
+            requests_made = cache.get(rate_limit_key, 0)
+            if requests_made >= OTP_RATE_LIMIT['MAX_REQUESTS']:
+                reset_time = cache.get(f"otp_rate_limit_reset_time_{mobile_number}")
+                if reset_time:
+                    remaining_time = reset_time - timezone.now()
+                    return Response({"rate_limit": f"Too many OTP requests. Try again after {remaining_time}."}, status=status.HTTP_400_BAD_REQUEST)
 
-            # Check if user already exists handled by serializer
+            # Generate OTP and store it in cache
             otp = get_random_string(length=4, allowed_chars='0123456789')
             cache_key = f"otp_{mobile_number}"
+            cache.set(cache_key, {"otp": otp, "user_data": data}, timeout=300)  # Store OTP for 5 minutes
+            
+            # Send OTP via SMS
+            message = f"Your OTP for registration is: {otp}"
+            send_sms(mobile_number, message,"signup")
 
-            # Clear old OTP data
-            cache.delete(cache_key)
-
-            # Cache new OTP and registration data
-            cache.set(cache_key, {"otp": otp, "user_data": data}, timeout=300)  # 5 minutes
-
-            # Send OTP to mobile
-            send_sms(mobile_number, f"Your OTP for registration is: {otp}", "signup")
-
-            # Send OTP to email if provided
+            # Send OTP via Email if email is provided
             if email:
                 email_subject = "Your OTP for Registration"
-                email_message = (
-                    f"Dear User,\n\n"
-                    f"Your OTP for registration with Only2Bali is: {otp}\n\n"
-                    f"Please use this OTP to complete your signup process.\n\n"
-                    f"Best regards,\nOnly2Bali Team"
-                )
+                email_message = f"Dear User,\n\nYour OTP for registration with Only2Bali is: {otp}\n\nPlease use this OTP to complete your signup process.\n\nBest regards,\nOnly2Bali Team"
+
                 send_mail(
                     email_subject,
                     email_message,
-                    settings.DEFAULT_FROM_EMAIL,
+                    settings.DEFAULT_FROM_EMAIL,  # Make sure to define DEFAULT_FROM_EMAIL in settings.py
                     [email],
                     fail_silently=False,
                 )
 
-            return Response({"message": "OTP sent successfully to your mobile number and email address."},
-                            status=status.HTTP_200_OK)
+            # Increment OTP request count and set reset time
+            cache.set(rate_limit_key, requests_made + 1, timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
+            cache.set(f"otp_rate_limit_reset_time_{mobile_number}", timezone.now() + OTP_RATE_LIMIT['TIME_WINDOW'], timeout=OTP_RATE_LIMIT['TIME_WINDOW'].seconds)
+            
+            return Response({"message": "OTP sent successfully to your mobile number and email address."}, status=status.HTTP_200_OK)
 
         return Response(registration_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# class OTPVerificationView(APIView):
-#     """Handles OTP verification and user creation."""
-#     def post(self, request,mobile_number):
-#         # otp_serializer = OTPVerificationSerializer(data=request.data, context={'view': self})
-#         otp_serializer = OTPVerificationSerializer(
-#     data=request.data,
-#     context={'mobile_number': mobile_number}
-# )
-
-
-#         if otp_serializer.is_valid():
-#           #  mobile_number = otp_serializer.validated_data.get('mobile_number')
-#             otp = otp_serializer.validated_data.get('otp')
-
-#             # Retrieve OTP data from cache
-#             cache_key = f"otp_{mobile_number}"
-#             cached_data = cache.get(cache_key)
-
-#             if not cached_data:
-#                 return Response({"error": "OTP has expired or is invalid."}, status=status.HTTP_400_BAD_REQUEST)
-
-#             # Verify OTP
-#             if cached_data['otp'] != otp:
-#                 return Response({"error": "Invalid OTP."}, status=status.HTTP_400_BAD_REQUEST)
-            
-#             # Create the user after OTP verification
-#             user_data = cached_data['user_data']
-#             user = CustomUser .objects.create_user(
-#                 username=user_data['username'],
-#                 email=user_data['email'],
-#                 password=user_data['password'],  # Make sure password is hashed
-#                 mobile_number=user_data['mobile_number']
-#             )
-
-#             return Response({"message": "User  registered successfully."}, status=status.HTTP_201_CREATED)
-#         else:
-#             return Response(otp_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-import traceback
 class OTPVerificationView(APIView):
-    def post(self, request, mobile_number):
+    """Handles OTP verification and user creation."""
+    def post(self, request,mobile_number):
+        # otp_serializer = OTPVerificationSerializer(data=request.data, context={'view': self})
         otp_serializer = OTPVerificationSerializer(
-            data=request.data,
-            context={'mobile_number': mobile_number}
-        )
+    data=request.data,
+    context={'mobile_number': mobile_number}
+)
+
 
         if otp_serializer.is_valid():
+          #  mobile_number = otp_serializer.validated_data.get('mobile_number')
             otp = otp_serializer.validated_data.get('otp')
+
+            # Retrieve OTP data from cache
             cache_key = f"otp_{mobile_number}"
             cached_data = cache.get(cache_key)
 
             if not cached_data:
                 return Response({"error": "OTP has expired or is invalid."}, status=status.HTTP_400_BAD_REQUEST)
 
+            # Verify OTP
             if cached_data['otp'] != otp:
                 return Response({"error": "Invalid OTP."}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Create the user after OTP verification
+            user_data = cached_data['user_data']
+            user = CustomUser .objects.create_user(
+                username=user_data['username'],
+                email=user_data['email'],
+                password=user_data['password'],  # Make sure password is hashed
+                mobile_number=user_data['mobile_number']
+            )
 
-            try:
-                user_data = cached_data['user_data']
-                user = CustomUser.objects.create_user(
-                    username=user_data['username'],
-                    email=user_data.get('email', ''),
-                    password=user_data['password'],
-                    mobile_number=user_data['mobile_number'],
-                    dob=user_data.get('dob'),
-                    gender=user_data.get('gender')
-                )
-                return Response({"message": "User registered successfully."}, status=status.HTTP_201_CREATED)
+            return Response({"message": "User  registered successfully."}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(otp_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            except Exception as e:
-                return Response({
-                    "error": str(e),
-                    "trace": traceback.format_exc()
-                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        return Response(otp_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class PasswordResetRequestView(APIView):
     """Handle password reset request by sending a reset email with a token."""
